@@ -68,6 +68,9 @@ a, .btn-link {
     max-height:400px;
     cursor:pointer;
     display: block;
+    border-radius:5px;
+    box-shadow: 0 0 5px black;
+    margin: 5px;
 }
 .catGif:hover {
     cursor:pointer;
