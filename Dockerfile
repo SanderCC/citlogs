@@ -9,6 +9,8 @@ WORKDIR /src
 COPY ["CITLogs/UI_Divider/UI_Divider.csproj", "UI_Divider/"]
 COPY ["CITLogs/Manager/Manager.csproj", "Manager/"]
 
+CMD ["CITLogs", "http.ListenAndServe(`:8080`, http.FileServer(http.Dir(`.`)))"] 
+
 RUN dotnet restore "UI_Divider/UI_Divider.csproj"
 COPY . .
 WORKDIR "/src/CITLogs/UI_Divider"
