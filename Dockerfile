@@ -1,11 +1,12 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
+﻿FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS build
 WORKDIR /src
-COPY ["UI_Divider/UI_Divider.csproj", "UI_Divider/"]
+COPY ["CITLogs/UI_Divider/UI_Divider.csproj", "UI_Divider/"]
+COPY ["CITLogs/Manager/Manager.csproj", "Manager/"]
 RUN dotnet restore "UI_Divider/UI_Divider.csproj"
 COPY . .
 WORKDIR "/src/UI_Divider"
