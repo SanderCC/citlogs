@@ -7,7 +7,7 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["CITLogs/Manager/Manager.csproj", "Manager/"]
 COPY ["CITLogs/UI_Divider/UI_Divider.csproj", "UI_Divider/"]
-RUN dotnet restore "CITLogs/UI_Divider/UI_Divider.csproj"
+RUN dotnet restore "UI_Divider/UI_Divider.csproj"
 COPY . .
 WORKDIR "/src/UI_Divider"
 RUN dotnet build "UI_Divider.csproj" -c Release -o /app/build
