@@ -73,3 +73,8 @@ a, .btn-link {
     cursor:pointer;
     opacity:0.9;
 }
+@media (max-width: 1000px) {
+    .catGif {
+        display: none;
+    }
+}
