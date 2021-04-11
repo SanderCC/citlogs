@@ -16,9 +16,9 @@
     background: linear-gradient(331deg, #a60000, #735e00, #730000);
     background-size: 600% 600%;
 
-    -webkit-animation: lognav 30s ease infinite;
-    -moz-animation: lognav 30s ease infinite;
-    animation: lognav 30s ease infinite;
+    -webkit-animation: lognav 50s ease infinite;
+    -moz-animation: lognav 50s ease infinite;
+    animation: lognav 50s ease infinite;
 }
 
 @-webkit-keyframes lognav {
