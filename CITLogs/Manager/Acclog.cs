@@ -92,7 +92,8 @@ namespace Manager
                         if(line.Contains("(CITphoneTran")) PlayerTransactions.Add(line);
                         else if (line.Contains("CIThit")) Hit.Add(line);
                     }
-
+                    else if(line.Contains(" BT: ")) PlayerTransactions.Add(line);
+                    
                     else if (line.Contains(" (FMSG) ")) Fmsg.Add(line);
                     else if (line.Contains(" (LOCF)[")) Fmsg.Add(line);
 
