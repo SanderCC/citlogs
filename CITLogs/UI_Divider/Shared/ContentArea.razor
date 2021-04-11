@@ -1,17 +1,23 @@
 ﻿<div class="contentArea">
     <h3>@Title</h3>
-    <textarea class="form-control" readonly>
-        @foreach (string line in Content)
+    <textarea rows="5" class="form-control" readonly>
+    @if (Content.Any())
+    {
+        foreach (string line in Content)
         {
             var newLine = line + "\n";
             @newLine
         }
-    </textarea>
+    }    
+</textarea>
 </div>
 
 @code {
+
     [Parameter]
     public string Title { get; set; } = "Undefined";
+
     [Parameter]
     public List<string> Content { get; set; }
+
 }

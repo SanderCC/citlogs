@@ -40,6 +40,7 @@ namespace Manager
             Fmsg = new List<string>();
             Sms = new List<string>();
             Group = new List<string>();
+            Squad = new List<string>();
             Other = new List<string>();
             Cad = new List<string>();
             Support = new List<string>();
@@ -52,7 +53,8 @@ namespace Manager
             {
                 foreach (string line in content.Split("\n"))
                 {
-                    if (line.Contains(" TC: ")) Team.Add(line);
+                    if (line.Length < 5) Console.WriteLine("Line too small, skipped.");
+                    else if (line.Contains(" TC: ")) Team.Add(line);
                     else if (line.Contains(" MC LS:")) Main.Add(line);
                     else if (line.Contains(" MC LV:")) Main.Add(line);
                     else if (line.Contains(" MC SF:")) Main.Add(line);

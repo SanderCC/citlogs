@@ -19,110 +19,123 @@
     </div>
 </div>
 <div class="row">
-    @if (_acclog.Main.Any())
+    @try
     {
-        <div class="col-lg-4">
-            <ContentArea Title="Main" Content="@_acclog.Main"></ContentArea>
-        </div>
+        @if (_acclog.Main.Any())
+        {
+            <div class="col-lg-@_colSize">
+                <ContentArea Title="Main" Content="@_acclog.Main"></ContentArea>
+            </div>
+        }
+        @if (_acclog.Team.Any())
+        {
+            <div class="col-lg-@_colSize">
+                <ContentArea Title="Team" Content="@_acclog.Team"></ContentArea>
+            </div>
+        }
+        @if (_acclog.Country.Any())
+        {
+            <div class="col-lg-@_colSize">
+                <ContentArea Title="Country" Content="@_acclog.Country"></ContentArea>
+            </div>
+        }
+        @if (_acclog.Local.Any())
+        {
+            <div class="col-lg-@_colSize">
+                <ContentArea Title="Local" Content="@_acclog.Local"></ContentArea>
+            </div>
+        }
+        @if (_acclog.Sms.Any())
+        {
+            <div class="col-lg-@_colSize">
+                <ContentArea Title="Sms" Content="@_acclog.Sms"></ContentArea>
+            </div>
+        }
+        @if (_acclog.Support.Any())
+        {
+            <div class="col-lg-@_colSize">
+                <ContentArea Title="Support" Content="@_acclog.Support"></ContentArea>
+            </div>
+        }
+        @if (_acclog.Cad.Any())
+        {
+            <div class="col-lg-@_colSize">
+                <ContentArea Title="Cad" Content="@_acclog.Cad"></ContentArea>
+            </div>
+        }
+        @if (_acclog.Advert.Any())
+        {
+            <div class="col-lg-@_colSize">
+                <ContentArea Title="Advert" Content="@_acclog.Advert"></ContentArea>
+            </div>
+        }
+        @if (_acclog.KillDeaths.Any())
+        {
+            <div class="col-lg-@_colSize">
+                <ContentArea Title="KillDeaths" Content="@_acclog.KillDeaths"></ContentArea>
+            </div>
+        }
+        @if (_acclog.Group.Any())
+        {
+            <div class="col-lg-@_colSize">
+                <ContentArea Title="Group" Content="@_acclog.Group"></ContentArea>
+            </div>
+        }
+        @if (_acclog.Squad.Any())
+        {
+            <div class="col-lg-@_colSize">
+                <ContentArea Title="Squad" Content="@_acclog.Squad"></ContentArea>
+            </div>
+        }
+        @if (_acclog.TTransactions.Any())
+        {
+            <div class="col-lg-@_colSize">
+                <ContentArea Title="TTransactions" Content="@_acclog.TTransactions"></ContentArea>
+            </div>
+        }
+        @if (_acclog.GTransactions.Any())
+        {
+            <div class="col-lg-@_colSize">
+                <ContentArea Title="GTransactions" Content="@_acclog.GTransactions"></ContentArea>
+            </div>
+        }
+        @if (_acclog.JoinQuit.Any())
+        {
+            <div class="col-lg-@_colSize">
+                <ContentArea Title="JoinQuit" Content="@_acclog.JoinQuit"></ContentArea>
+            </div>
+        }
+        @if (_acclog.Occupation.Any())
+        {
+            <div class="col-lg-@_colSize">
+                <ContentArea Title="Occupation" Content="@_acclog.Occupation"></ContentArea>
+            </div>
+        }
+        @if (_acclog.Other.Any())
+        {
+            <div class="col-lg-@_colSize">
+                <ContentArea Title="Other" Content="@_acclog.Other"></ContentArea>
+            </div>
+        }
     }
-    @if (_acclog.Team.Any())
+    catch (Exception e)
     {
-        <div class="col-lg-4">
-            <ContentArea Title="Team" Content="@_acclog.Team"></ContentArea>
-        </div>
+        Console.WriteLine(e);
     }
-    @if (_acclog.Country.Any())
+    @for (int i = 0; i < 10; i++)
     {
-        <div class="col-lg-4">
-            <ContentArea Title="Country" Content="@_acclog.Country"></ContentArea>
-        </div>
-    }
-    @if (_acclog.Local.Any())
-    {
-        <div class="col-lg-4">
-            <ContentArea Title="Country" Content="@_acclog.Country"></ContentArea>
-        </div>
-    }
-    @if (_acclog.Sms.Any())
-    {
-        <div class="col-lg-4">
-            <ContentArea Title="Country" Content="@_acclog.Country"></ContentArea>
-        </div>
-    }
-    @if (_acclog.Support.Any())
-    {
-        <div class="col-lg-4">
-            <ContentArea Title="Country" Content="@_acclog.Country"></ContentArea>
-        </div>
-    }
-    @if (_acclog.Cad.Any())
-    {
-        <div class="col-lg-4">
-            <ContentArea Title="Country" Content="@_acclog.Country"></ContentArea>
-        </div>
-    }
-    @if (_acclog.Advert.Any())
-    {
-        <div class="col-lg-4">
-            <ContentArea Title="Country" Content="@_acclog.Country"></ContentArea>
-        </div>
-    }
-    @if (_acclog.KillDeaths.Any())
-    {
-        <div class="col-lg-4">
-            <ContentArea Title="Country" Content="@_acclog.Country"></ContentArea>
-        </div>
-    }
-    @if (_acclog.Group.Any())
-    {
-        <div class="col-lg-4">
-            <ContentArea Title="Country" Content="@_acclog.Country"></ContentArea>
-        </div>
-    }
-    @if (_acclog.Squad.Any())
-    {
-        <div class="col-lg-4">
-            <ContentArea Title="Country" Content="@_acclog.Country"></ContentArea>
-        </div>
-    }
-    @if (_acclog.TTransactions.Any())
-    {
-        <div class="col-lg-4">
-            <ContentArea Title="Country" Content="@_acclog.Country"></ContentArea>
-        </div>
-    }
-    @if (_acclog.GTransactions.Any())
-    {
-        <div class="col-lg-4">
-            <ContentArea Title="Country" Content="@_acclog.Country"></ContentArea>
-        </div>
-    }
-    @if (_acclog.JoinQuit.Any())
-    {
-        <div class="col-lg-4">
-            <ContentArea Title="Country" Content="@_acclog.Country"></ContentArea>
-        </div>
-    }
-    @if (_acclog.Occupation.Any())
-    {
-        <div class="col-lg-4">
-            <ContentArea Title="Country" Content="@_acclog.Country"></ContentArea>
-        </div>
-    }
-    @if (_acclog.Other.Any())
-    {
-        <div class="col-lg-4">
-            <ContentArea Title="Country" Content="@_acclog.Country"></ContentArea>
-        </div>
+        <br/>
     }
 </div>
 
 @code {
     private string _input;
     private Acclog _acclog;
+    private int _colSize;
 
     protected override void OnInitialized()
     {
+        _colSize = 6;
         _input = "";
         _acclog = new Acclog();
         base.OnInitialized();

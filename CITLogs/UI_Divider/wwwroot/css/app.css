@@ -56,6 +56,7 @@ a, .btn-link {
 .contentArea {
     width:100%;
     font-size: 9px;
+    margin-bottom: 10px;
 }
 
 .contentArea textarea {
