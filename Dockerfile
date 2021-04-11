@@ -10,7 +10,7 @@ COPY ["CITLogs/UI_Divider/UI_Divider.csproj", "UI_Divider/"]
 RUN dotnet restore "UI_Divider/UI_Divider.csproj"
 COPY . .
 WORKDIR "/src/UI_Divider"
-RUN dotnet build "UI_Divider/UI_Divider.csproj" -c Release -o /app/build
+RUN dotnet build "UI_Divider.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "UI_Divider.csproj" -c Release -o /app/publish
