@@ -15,14 +15,17 @@ namespace Manager
         public List<string> Occupation { get; set; }
         public List<string> TTransactions { get; set; }
         public List<string> GTransactions { get; set; }
+        public List<string> PlayerTransactions { get; set; }
         public List<string> KillDeaths { get; set; }
         public List<string> JoinQuit { get; set; }
         public List<string> Fmsg { get; set; }
         public List<string> Sms { get; set; }
         public List<string> Group { get; set; }
         public List<string> Squad { get; set; }
+        public List<string> Unit { get; set; }
         public List<string> Cad { get; set; }
         public List<string> Support { get; set; }
+        public List<string> Hit { get; set; }
         public List<string> Other { get; set; }
 
         public Acclog()
@@ -35,15 +38,18 @@ namespace Manager
             Occupation = new List<string>();
             TTransactions = new List<string>();
             GTransactions = new List<string>();
+            PlayerTransactions = new List<string>();
             KillDeaths = new List<string>();
             JoinQuit = new List<string>();
             Fmsg = new List<string>();
             Sms = new List<string>();
             Group = new List<string>();
             Squad = new List<string>();
+            Unit = new List<string>();
             Other = new List<string>();
             Cad = new List<string>();
             Support = new List<string>();
+            Hit = new List<string>();
             Other = new List<string>();
         }
 
@@ -69,12 +75,23 @@ namespace Manager
 
                     else if (line.Contains(" GrC (")) Group.Add(line);
                     else if (line.Contains(" SC (")) Squad.Add(line);
+                    else if (line.Contains(" UC (")) Unit.Add(line);
 
                     else if (line.Contains(" SMS from ")) Sms.Add(line);
                     else if (line.Contains(" SMS to ")) Sms.Add(line);
 
-                    else if (line.Contains(" T$ ")) TTransactions.Add(line);
-                    else if (line.Contains(" G$ ")) GTransactions.Add(line);
+                    else if (line.Contains(" T$ "))
+                    {
+                        TTransactions.Add(line);
+                        if(line.Contains("(CITphoneTran")) PlayerTransactions.Add(line);
+                        else if (line.Contains("CIThit")) Hit.Add(line);
+                    }
+                    else if (line.Contains(" G$ "))
+                    {
+                        GTransactions.Add(line);
+                        if(line.Contains("(CITphoneTran")) PlayerTransactions.Add(line);
+                        else if (line.Contains("CIThit")) Hit.Add(line);
+                    }
 
                     else if (line.Contains(" (FMSG) ")) Fmsg.Add(line);
                     else if (line.Contains(" (LOCF)[")) Fmsg.Add(line);
@@ -92,6 +109,7 @@ namespace Manager
                     else if (line.Contains(" QUIT MISC: ")) JoinQuit.Add(line);
                     else if (line.Contains(" QUIT WEPS: ")) JoinQuit.Add(line);
                     else if (line.Contains(" QUIT WEPS: ")) JoinQuit.Add(line);
+                    
                     else Other.Add(line);
                 }
             }

@@ -87,6 +87,12 @@
                 <ContentArea Title="Squad" Content="@_acclog.Squad"></ContentArea>
             </div>
         }
+        @if (_acclog.Unit.Any())
+        {
+            <div class="col-lg-@_colSize">
+                <ContentArea Title="Unit" Content="@_acclog.Unit"></ContentArea>
+            </div>
+        }
         @if (_acclog.TTransactions.Any())
         {
             <div class="col-lg-@_colSize">
@@ -99,10 +105,22 @@
                 <ContentArea Title="G$ Transactions" Content="@_acclog.GTransactions"></ContentArea>
             </div>
         }
+        @if (_acclog.PlayerTransactions.Any())
+        {
+            <div class="col-lg-@_colSize">
+                <ContentArea Title="Player Transactions" Content="@_acclog.PlayerTransactions"></ContentArea>
+            </div>
+        }
         @if (_acclog.JoinQuit.Any())
         {
             <div class="col-lg-@_colSize">
                 <ContentArea Title="JoinQuit" Content="@_acclog.JoinQuit"></ContentArea>
+            </div>
+        }
+        @if (_acclog.Hit.Any())
+        {
+            <div class="col-lg-@_colSize">
+                <ContentArea Title="Hits" Content="@_acclog.Hit"></ContentArea>
             </div>
         }
         @if (_acclog.Occupation.Any())
