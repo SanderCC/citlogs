@@ -90,13 +90,13 @@
         @if (_acclog.TTransactions.Any())
         {
             <div class="col-lg-@_colSize">
-                <ContentArea Title="TTransactions" Content="@_acclog.TTransactions"></ContentArea>
+                <ContentArea Title="T$ Transactions" Content="@_acclog.TTransactions"></ContentArea>
             </div>
         }
         @if (_acclog.GTransactions.Any())
         {
             <div class="col-lg-@_colSize">
-                <ContentArea Title="GTransactions" Content="@_acclog.GTransactions"></ContentArea>
+                <ContentArea Title="G$ Transactions" Content="@_acclog.GTransactions"></ContentArea>
             </div>
         }
         @if (_acclog.JoinQuit.Any())
