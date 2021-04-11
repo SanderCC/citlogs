@@ -2,7 +2,7 @@
 WORKDIR /src
 COPY ["CITLogs/UI_Divider/UI_Divider.csproj", "UI_Divider/"]
 COPY ["CITLogs/Manager/Manager.csproj", "Manager/"]
-RUN dotnet restore "UI_Divider.csproj"
+RUN dotnet restore "UI_Divider/UI_Divider.csproj"
 COPY . .
 RUN dotnet build "UI_Divider.csproj" -c Release -o /app/build
 
