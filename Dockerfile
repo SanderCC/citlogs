@@ -1,11 +1,14 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:3.1-alpine AS base
+﻿#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM mcr.microsoft.com/dotnet/sdk:3.1-alpine AS build
+FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
 COPY ["CITLogs/UI_Divider/UI_Divider.csproj", "UI_Divider/"]
 COPY ["CITLogs/Manager/Manager.csproj", "Manager/"]
+
 RUN dotnet restore "UI_Divider/UI_Divider.csproj"
 COPY . .
 WORKDIR "/src/CITLogs/UI_Divider"
