@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 
 namespace Manager
 {
     public class Acclog
     {
+        public string Error { get; set; } = null;
         public List<string> Local { get; set; }
         public List<string> Main { get; set; }
         public List<string> Team { get; set; }
@@ -22,6 +24,7 @@ namespace Manager
         public List<string> Cad { get; set; }
         public List<string> Support { get; set; }
         public List<string> Other { get; set; }
+
         public Acclog()
         {
             Local = new List<string>();
@@ -45,49 +48,55 @@ namespace Manager
 
         public void Divide(string content)
         {
-            foreach (string line in content.Split("\n"))
+            try
             {
-                if(line.Contains(" TC: ")) Team.Add(line);
-                else if(line.Contains(" MC LS:")) Main.Add(line);
-                else if(line.Contains(" MC LV:")) Main.Add(line);
-                else if(line.Contains(" MC SF:")) Main.Add(line);
-                else if(line.Contains(" (ADVERT) ")) Advert.Add(line);
-                else if(line.Contains(" (MYC ")) Country.Add(line);
-                
-                else if(line.Contains(" (sup) ")) Support.Add(line);
-                else if(line.Contains(" (cad) ")) Cad.Add(line);
-                
-                else if(line.Contains(" KILL: ")) KillDeaths.Add(line);
-                else if(line.Contains(" DEATH: ")) KillDeaths.Add(line);
-                
-                else if(line.Contains(" GrC (")) Group.Add(line);
-                else if(line.Contains(" SC (")) Squad.Add(line);
-                
-                else if(line.Contains(" SMS from ")) Sms.Add(line);
-                else if(line.Contains(" SMS to ")) Sms.Add(line);
-                
-                else if(line.Contains(" T$ ")) TTransactions.Add(line);
-                else if(line.Contains(" G$ ")) GTransactions.Add(line);
-                
-                else if(line.Contains(" (FMSG) ")) Fmsg.Add(line);
-                else if(line.Contains(" (LOCF)[")) Fmsg.Add(line);
-                
-                else if(line.Contains(" (LOC)[")) Local.Add(line);
-                else if(line.Contains(" (LOC)[")) Local.Add(line);
-                else if(line.Contains(" (LOC)[")) Local.Add(line);
-                else if(line.Contains(" (LOC)[")) Local.Add(line);
-                
-                else if(line.Contains(" NC ")) JoinQuit.Add(line);
-                else if(line.Contains(" LOGIN MISC: ")) JoinQuit.Add(line);
-                else if(line.Contains(" LOGIN: ")) JoinQuit.Add(line);
-                else if(line.Contains(" LOGIN WEPS: ")) JoinQuit.Add(line);
-                else if(line.Contains(" QUIT: ")) JoinQuit.Add(line);
-                else if(line.Contains(" QUIT MISC: ")) JoinQuit.Add(line);
-                else if(line.Contains(" QUIT WEPS: ")) JoinQuit.Add(line);
-                else if(line.Contains(" QUIT WEPS: ")) JoinQuit.Add(line);
-                else Other.Add(line);
+                foreach (string line in content.Split("\n"))
+                {
+                    if (line.Contains(" TC: ")) Team.Add(line);
+                    else if (line.Contains(" MC LS:")) Main.Add(line);
+                    else if (line.Contains(" MC LV:")) Main.Add(line);
+                    else if (line.Contains(" MC SF:")) Main.Add(line);
+                    else if (line.Contains(" (ADVERT) ")) Advert.Add(line);
+                    else if (line.Contains(" (MYC ")) Country.Add(line);
+
+                    else if (line.Contains(" (sup) ")) Support.Add(line);
+                    else if (line.Contains(" (cad) ")) Cad.Add(line);
+
+                    else if (line.Contains(" KILL: ")) KillDeaths.Add(line);
+                    else if (line.Contains(" DEATH: ")) KillDeaths.Add(line);
+
+                    else if (line.Contains(" GrC (")) Group.Add(line);
+                    else if (line.Contains(" SC (")) Squad.Add(line);
+
+                    else if (line.Contains(" SMS from ")) Sms.Add(line);
+                    else if (line.Contains(" SMS to ")) Sms.Add(line);
+
+                    else if (line.Contains(" T$ ")) TTransactions.Add(line);
+                    else if (line.Contains(" G$ ")) GTransactions.Add(line);
+
+                    else if (line.Contains(" (FMSG) ")) Fmsg.Add(line);
+                    else if (line.Contains(" (LOCF)[")) Fmsg.Add(line);
+
+                    else if (line.Contains(" (LOC)[")) Local.Add(line);
+                    else if (line.Contains(" (LOC)[")) Local.Add(line);
+                    else if (line.Contains(" (LOC)[")) Local.Add(line);
+                    else if (line.Contains(" (LOC)[")) Local.Add(line);
+
+                    else if (line.Contains(" NC ")) JoinQuit.Add(line);
+                    else if (line.Contains(" LOGIN MISC: ")) JoinQuit.Add(line);
+                    else if (line.Contains(" LOGIN: ")) JoinQuit.Add(line);
+                    else if (line.Contains(" LOGIN WEPS: ")) JoinQuit.Add(line);
+                    else if (line.Contains(" QUIT: ")) JoinQuit.Add(line);
+                    else if (line.Contains(" QUIT MISC: ")) JoinQuit.Add(line);
+                    else if (line.Contains(" QUIT WEPS: ")) JoinQuit.Add(line);
+                    else if (line.Contains(" QUIT WEPS: ")) JoinQuit.Add(line);
+                    else Other.Add(line);
+                }
+            }
+            catch (Exception e)
+            {
+                Error = e.Message;
             }
         }
-        
     }
 }

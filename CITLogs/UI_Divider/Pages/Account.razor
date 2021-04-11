@@ -1,6 +1,59 @@
 ﻿@page "/Account"
+@using Manager
 <h3>Account Logs</h3>
 
+@if (_acclog.Error != null)
+{
+    <h5>ERROR: @_acclog.Error</h5>
+}
+
+<div class="row">
+    <div class="col-lg-8">
+        <EditForm Model="_input" OnSubmit="ExecuteDivider">
+            <textarea class="form-control" rows="7" @bind="_input"></textarea>
+            <button class="btn btn-dark">Render</button>
+        </EditForm>
+    </div>
+    <div class="col-lg-4">
+        <CatGif></CatGif>
+    </div>
+</div>
+<div class="row">
+    @if (_acclog.Main.Any())
+    {
+        <div class="col-lg-4">
+            <ContentArea Title="Main" Content="@_acclog.Main"></ContentArea>
+        </div>
+    }
+    @if (_acclog.Team.Any())
+    {
+        <div class="col-lg-4">
+            <ContentArea Title="Team" Content="@_acclog.Team"></ContentArea>
+        </div>
+    }
+    @if (_acclog.Country.Any())
+    {
+        <div class="col-lg-4">
+            <ContentArea Title="Country" Content="@_acclog.Country"></ContentArea>
+        </div>
+    }
+</div>
+
 @code {
-    
+    private string _input;
+    private Acclog _acclog;
+
+    protected override void OnInitialized()
+    {
+        _input = "";
+        _acclog = new Acclog();
+        base.OnInitialized();
+    }
+
+    private void ExecuteDivider()
+    {
+        _acclog = new Acclog();
+        _acclog.Divide(_input);
+    }
+
 }

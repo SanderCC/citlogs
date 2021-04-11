@@ -1,0 +1,17 @@
+﻿<div class="contentArea">
+    <h3>@Title</h3>
+    <textarea class="form-control" readonly>
+        @foreach (string line in Content)
+        {
+            var newLine = line + "\n";
+            @newLine
+        }
+    </textarea>
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; } = "Undefined";
+    [Parameter]
+    public List<string> Content { get; set; }
+}
