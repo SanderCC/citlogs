@@ -5,8 +5,8 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["Manager/Manager.csproj", "Manager/"]
-COPY ["UI_Divider/UI_Divider.csproj", "UI_Divider/"]
+COPY ["CITLogs/Manager/Manager.csproj", "Manager/"]
+COPY ["CITLogs/UI_Divider/UI_Divider.csproj", "UI_Divider/"]
 RUN dotnet restore "UI_Divider/UI_Divider.csproj"
 COPY . .
 WORKDIR "/src/UI_Divider"
