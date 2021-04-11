@@ -62,3 +62,14 @@ a, .btn-link {
 .contentArea textarea {
     font-size: 9px;
 }
+
+.catGif {
+    max-width:100%;
+    max-height:400px;
+    cursor:pointer;
+    display: block;
+}
+.catGif:hover {
+    cursor:pointer;
+    opacity:0.9;
+}
