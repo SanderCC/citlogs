@@ -13,28 +13,7 @@
 }*/
 
 .sidebar {
-    background: linear-gradient(331deg, #a60000, #735e00, #730000);
-    background-size: 600% 600%;
-
-    -webkit-animation: lognav 50s ease infinite;
-    -moz-animation: lognav 50s ease infinite;
-    animation: lognav 50s ease infinite;
-}
-
-@-webkit-keyframes lognav {
-    0%{background-position:0% 2%}
-    50%{background-position:100% 99%}
-    100%{background-position:0% 2%}
-}
-@-moz-keyframes lognav {
-    0%{background-position:0% 2%}
-    50%{background-position:100% 99%}
-    100%{background-position:0% 2%}
-}
-@keyframes lognav {
-    0%{background-position:0% 2%}
-    50%{background-position:100% 99%}
-    100%{background-position:0% 2%}
+    background: #9B0000;
 }
 
 .top-row {
