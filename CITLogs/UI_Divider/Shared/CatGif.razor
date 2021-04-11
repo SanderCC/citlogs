@@ -1,1 +1,15 @@
-﻿<img style="max-width:100%;" src="http://thecatapi.com/api/images/get?format=src&type=gif"/>
+﻿<img 
+    style="max-width:100%;" 
+    src="https://thecatapi.com/api/images/get?format=src&type=gif&rand=@_random"
+    />
+@code {
+    private Random _generator;
+    private int _random;
+
+    protected override void OnInitialized()
+    {
+        _generator = new Random();
+        _random = _generator.Next(1, 9999);
+        base.OnInitialized();
+    }
+}
