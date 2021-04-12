@@ -36,7 +36,7 @@ namespace Manager
                     else if (line.Contains(" is promoting ")) RankChanges.Add(line);
                     else if (line.Contains(" is demoting ")) RankChanges.Add(line);
                     
-                    else if (line.Contains(") joined the group. Invited by ")) JoinsDepartures.Add(line);
+                    else if (line.Contains(") joined the group")) JoinsDepartures.Add(line);
                     else if (line.Contains(" has kicked ")) JoinsDepartures.Add(line);
                     else if (line.Contains(") left the group as ")) JoinsDepartures.Add(line);
                     
