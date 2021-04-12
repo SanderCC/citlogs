@@ -6,6 +6,8 @@ namespace Manager
     public class Grouplog
     {
         public string Error { get; set; } = null;
+        public double Duration { get; set; } = 0;
+        
         public List<string> Bank { get; set; }
         public List<string> RankChanges { get; set; }
         public List<string> JoinsDepartures { get; set; }
@@ -29,6 +31,7 @@ namespace Manager
 
         public void Divide(string content)
         {
+            DateTime start = DateTime.Now;
             try
             {
                 foreach (string line in content.Split("\n"))
@@ -74,6 +77,7 @@ namespace Manager
                 Console.WriteLine(e.ToString());
                 Error = e.Message;
             }
+            Duration = (DateTime.Now - start).TotalSeconds;
         }
     }
 }

@@ -5,6 +5,9 @@
 @if (_group.Error != null)
 {
     <h5>ERROR: @_group.Error</h5>
+} else if (_group.Duration > 0)
+{
+    <h5>Duration: @_group.Duration seconds</h5>
 }
 
 <div class="row">
@@ -73,5 +76,4 @@
         _data.Add("Custom Titles", _group.CustomTitle);
         _data.Add("Other", _group.Other);
     }
-
 }
