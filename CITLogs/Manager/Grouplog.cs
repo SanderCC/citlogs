@@ -33,6 +33,11 @@ namespace Manager
                 {
                     if (line.Length < 5) Console.WriteLine("Line too small, skipped.");
                     
+                    else if (line.Contains(") updated the group info")) Management.Add(line);
+                    else if (line.Contains(" has updated group application.")) Management.Add(line);
+                    else if (line.Contains(" blacklist.")) Management.Add(line);
+                    else if (line.Contains("updated the group whitelist")) Management.Add(line);
+                    
                     else if (line.Contains(" is promoting ")) RankChanges.Add(line);
                     else if (line.Contains(" is demoting ")) RankChanges.Add(line);
                     
@@ -51,13 +56,10 @@ namespace Manager
                     else if (line.Contains(") warned ")) Warnings.Add(line);
                     else if (line.Contains(") rewarded ")) Warnings.Add(line);
                     
-                    else if (line.Contains(") removed rank: ")) Management.Add(line);
-                    else if (line.Contains(") updated the group info")) Management.Add(line);
-                    else if (line.Contains(" has updated group application.")) Management.Add(line);
-                    else if (line.Contains(" blacklist.")) Management.Add(line);
                     else if (line.Contains(") has promoted group: ")) Management.Add(line);
-                    else if (line.Contains("updated the group whitelist")) Management.Add(line);
                     else if (line.Contains(") updated rank: ")) Management.Add(line);
+                    else if(line.Contains(") added rank: ")) Management.Add(line);
+                    else if (line.Contains(") removed rank: ")) Management.Add(line);
                     
                     else Other.Add(line);
                 }
