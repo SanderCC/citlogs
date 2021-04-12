@@ -7,6 +7,7 @@ namespace Manager
     public class Acclog
     {
         public string Error { get; set; } = null;
+        public double Duration { get; set; } = 0;
         public List<string> Local { get; set; }
         public List<string> Main { get; set; }
         public List<string> Team { get; set; }
@@ -55,6 +56,7 @@ namespace Manager
 
         public void Divide(string content)
         {
+            DateTime start = DateTime.Now;
             try
             {
                 foreach (string line in content.Split("\n"))
@@ -118,6 +120,7 @@ namespace Manager
             {
                 Error = e.Message;
             }
+            Duration = (DateTime.Now - start).TotalSeconds;
         }
     }
 }

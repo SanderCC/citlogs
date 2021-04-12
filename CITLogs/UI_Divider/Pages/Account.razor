@@ -5,7 +5,10 @@
 @if (_acclog.Error != null)
 {
     <h5>ERROR: @_acclog.Error</h5>
-}
+} else if (_acclog.Duration > 0)
+ {
+     <h5>Duration: @_acclog.Duration seconds</h5>
+ }
 
 <div class="row">
     <div class="col-lg-8">
