@@ -1,9 +1,76 @@
 ﻿@page "/Group"
+@using Manager
 <h3>Group/Squad Logs</h3>
 
-Still under development
+@if (_group.Error != null)
+{
+    <h5>ERROR: @_group.Error</h5>
+}
 
-<CatGif></CatGif>
+<div class="row">
+    <div class="col-lg-8">
+        <EditForm Model="_input" OnSubmit="ExecuteDivider">
+            <textarea placeholder="Paste your logs here..." class="form-control" rows="7" @bind="_input"></textarea>
+            <button class="btn btn-dark">Render</button>
+        </EditForm>
+    </div>
+    <div class="col-lg-4">
+        <CatGif></CatGif>
+    </div>
+</div>
+<div class="row">
+    @try
+    {
+        if (_data != null && _data.Any())
+        {
+            foreach (var col in _data)
+            {
+                if (col.Value != null && col.Value.Any())
+                {
+                    <div class="col-lg-6">
+                        <ContentArea Title="@col.Key" Content="@col.Value"></ContentArea>
+                    </div>
+                }
+            }
+        }
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e);
+    }
+    @for (int i = 0; i < 10; i++)
+    {
+        <br/>
+    }
+</div>
+
 @code {
-    
+    private IDictionary<string, List<string>> _data;
+    private Grouplog _group;
+    private string _input;
+
+    protected override void OnInitialized()
+    {
+        _input = "";
+        _group = new Grouplog();
+        _group.Divide(_input);
+        _group = new Grouplog();
+        _data = new Dictionary<string, List<string>>();
+        base.OnInitialized();
+    }
+
+    private void ExecuteDivider()
+    {
+        _group = new Grouplog();
+        _group.Divide(_input);
+        _data = new Dictionary<string, List<string>>();
+        _data.Add("Joins / Departures", _group.JoinsDepartures);
+        _data.Add("Rank Changes", _group.RankChanges);
+        _data.Add("Warnings", _group.Warnings);
+        _data.Add("Bank", _group.Bank);
+        _data.Add("Applications", _group.Applications);
+        _data.Add("Management", _group.Management);
+        _data.Add("Other", _group.Other);
+    }
+
 }
