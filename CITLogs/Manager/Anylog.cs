@@ -31,7 +31,7 @@ namespace Manager
                 {
                     if (inputArray.Any(s => s.ToLower().Contains(filter)))
                     {
-                        Filtered.AddRange(inputArray.Where(s => s.ToLower().Contains(filter)));
+                        Filtered.AddRange(inputArray.Where(s => s.Contains(filter,StringComparison.CurrentCultureIgnoreCase)));
                     }
                 }
             }
