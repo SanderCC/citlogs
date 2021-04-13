@@ -22,14 +22,14 @@ namespace Manager
             {
                 foreach (string filter in filterInput.Split("\n"))
                 {
-                    filters.Add(filter);
+                    filters.Add(filter.ToLower());
                 }
                 
                 foreach (string line in input.Split("\n"))
                 {
                     foreach (string filter in filters)
                     {
-                        if(line.Contains(filter)) Filtered.Add(line);
+                        if(line.ToLower().Contains(filter)) Filtered.Add(line);
                     }
                 }
             }
