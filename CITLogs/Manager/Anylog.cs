@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Manager
 {
@@ -20,16 +21,17 @@ namespace Manager
             
             try
             {
+                var inputArray = input.Split("\n");
                 foreach (string filter in filterInput.Split("\n"))
                 {
                     filters.Add(filter.ToLower());
                 }
-                
-                foreach (string line in input.Split("\n"))
+
+                foreach (string filter in filters)
                 {
-                    foreach (string filter in filters)
+                    if (inputArray.Any(s => s.ToLower().Contains(filter)))
                     {
-                        if(line.ToLower().Contains(filter)) Filtered.Add(line);
+                        Filtered.AddRange(inputArray.Where(s => s.ToLower().Contains(filter)));
                     }
                 }
             }
