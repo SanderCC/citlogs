@@ -39,6 +39,7 @@ namespace Manager
             {
                 Error = e.Message;
             }
+            Filtered.Sort();
             Duration = (DateTime.Now - start).TotalSeconds;
             return Filtered;
         }
