@@ -72,6 +72,12 @@
                 <ContentArea Title="Advert" Content="@_acclog.Advert"></ContentArea>
             </div>
         }
+        @if (_acclog.Emergency.Any())
+        {
+            <div class="col-lg-@_colSize">
+                <ContentArea Title="Emergency" Content="@_acclog.Emergency"></ContentArea>
+            </div>
+        }
         @if (_acclog.KillDeaths.Any())
         {
             <div class="col-lg-@_colSize">

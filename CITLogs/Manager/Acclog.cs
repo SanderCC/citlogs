@@ -9,6 +9,7 @@ namespace Manager
         public string Error { get; set; } = null;
         public double Duration { get; set; } = 0;
         public List<string> Local { get; set; }
+        public List<string> Emergency { get; set; }
         public List<string> Main { get; set; }
         public List<string> Team { get; set; }
         public List<string> Country { get; set; }
@@ -31,6 +32,7 @@ namespace Manager
 
         public Acclog()
         {
+            Emergency = new List<string>();
             Local = new List<string>();
             Main = new List<string>();
             Team = new List<string>();
@@ -102,7 +104,8 @@ namespace Manager
                     else if (line.Contains(" (LOC)[")) Local.Add(line);
                     else if (line.Contains(" (LOC)[")) Local.Add(line);
                     else if (line.Contains(" (LOC)[")) Local.Add(line);
-                    else if (line.Contains(" (LOC)[")) Local.Add(line);
+                    
+                    else if (line.Contains(" LC ")) Emergency.Add(line);
 
                     else if (line.Contains(" NC ")) JoinQuit.Add(line);
                     else if (line.Contains(" LOGIN MISC: ")) JoinQuit.Add(line);
