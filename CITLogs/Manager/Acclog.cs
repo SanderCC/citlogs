@@ -28,6 +28,8 @@ namespace Manager
         public List<string> Cad { get; set; }
         public List<string> Support { get; set; }
         public List<string> Hit { get; set; }
+        public List<string> Inventory { get; set; }
+        public List<string> Trading { get; set; }
         public List<string> Other { get; set; }
 
         public Acclog()
@@ -53,6 +55,8 @@ namespace Manager
             Cad = new List<string>();
             Support = new List<string>();
             Hit = new List<string>();
+            Inventory = new List<string>();
+            Trading = new List<string>();
             Other = new List<string>();
         }
 
@@ -106,6 +110,12 @@ namespace Manager
                     else if (line.Contains(" (LOC)[")) Local.Add(line);
                     
                     else if (line.Contains(" LC ")) Emergency.Add(line);
+                    
+                    else if (line.Contains(" GroupPromotion: ")) Group.Add(line);
+                    
+                    else if (line.Contains(" modify ")) Inventory.Add(line);
+                    else if (line.Contains(") sold ")) Trading.Add(line);
+                    else if (line.Contains(" (Bought ")) Trading.Add(line);
 
                     else if (line.Contains(" NC ")) JoinQuit.Add(line);
                     else if (line.Contains(" LOGIN MISC: ")) JoinQuit.Add(line);
