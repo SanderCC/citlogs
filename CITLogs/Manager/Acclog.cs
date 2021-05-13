@@ -80,10 +80,12 @@ namespace Manager
 
                     else if (line.Contains(" KILL: ")) KillDeaths.Add(line);
                     else if (line.Contains(" DEATH: ")) KillDeaths.Add(line);
+                    else if (line.Contains(" killed themselves via command")) KillDeaths.Add(line);
 
                     else if (line.Contains(" GrC (")) Group.Add(line);
                     else if (line.Contains(" SC (")) Squad.Add(line);
                     else if (line.Contains(" UC (")) Unit.Add(line);
+                    else if (line.Contains(" (alliance) ")) Group.Add(line);
 
                     else if (line.Contains(" SMS from ")) Sms.Add(line);
                     else if (line.Contains(" SMS to ")) Sms.Add(line);
