@@ -57,7 +57,6 @@ namespace Manager
             Hit = new List<string>();
             Inventory = new List<string>();
             Trading = new List<string>();
-            Other = new List<string>();
         }
 
         public void Divide(string content)
@@ -116,6 +115,7 @@ namespace Manager
                     else if (line.Contains(" GroupPromotion: ")) Group.Add(line);
                     
                     else if (line.Contains(" modify ")) Inventory.Add(line);
+                    else if (line.Contains(" Crafting ")) Inventory.Add(line);
                     else if (line.Contains(") sold ")) Trading.Add(line);
                     else if (line.Contains(" (Bought ")) Trading.Add(line);
 

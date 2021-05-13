@@ -24,125 +24,17 @@
 <div class="row">
     @try
     {
-        @if (_acclog.Main.Any())
+        if (_data != null && _data.Any())
         {
-            <div class="col-lg-@_colSize">
-                <ContentArea Title="Main" Content="@_acclog.Main"></ContentArea>
-            </div>
-        }
-        @if (_acclog.Team.Any())
-        {
-            <div class="col-lg-@_colSize">
-                <ContentArea Title="Team" Content="@_acclog.Team"></ContentArea>
-            </div>
-        }
-        @if (_acclog.Country.Any())
-        {
-            <div class="col-lg-@_colSize">
-                <ContentArea Title="Country" Content="@_acclog.Country"></ContentArea>
-            </div>
-        }
-        @if (_acclog.Local.Any())
-        {
-            <div class="col-lg-@_colSize">
-                <ContentArea Title="Local" Content="@_acclog.Local"></ContentArea>
-            </div>
-        }
-        @if (_acclog.Sms.Any())
-        {
-            <div class="col-lg-@_colSize">
-                <ContentArea Title="Sms" Content="@_acclog.Sms"></ContentArea>
-            </div>
-        }
-        @if (_acclog.Support.Any())
-        {
-            <div class="col-lg-@_colSize">
-                <ContentArea Title="Support" Content="@_acclog.Support"></ContentArea>
-            </div>
-        }
-        @if (_acclog.Cad.Any())
-        {
-            <div class="col-lg-@_colSize">
-                <ContentArea Title="Cad" Content="@_acclog.Cad"></ContentArea>
-            </div>
-        }
-        @if (_acclog.Advert.Any())
-        {
-            <div class="col-lg-@_colSize">
-                <ContentArea Title="Advert" Content="@_acclog.Advert"></ContentArea>
-            </div>
-        }
-        @if (_acclog.Emergency.Any())
-        {
-            <div class="col-lg-@_colSize">
-                <ContentArea Title="Emergency" Content="@_acclog.Emergency"></ContentArea>
-            </div>
-        }
-        @if (_acclog.KillDeaths.Any())
-        {
-            <div class="col-lg-@_colSize">
-                <ContentArea Title="Kill Deaths" Content="@_acclog.KillDeaths"></ContentArea>
-            </div>
-        }
-        @if (_acclog.Group.Any())
-        {
-            <div class="col-lg-@_colSize">
-                <ContentArea Title="Group" Content="@_acclog.Group"></ContentArea>
-            </div>
-        }
-        @if (_acclog.Squad.Any())
-        {
-            <div class="col-lg-@_colSize">
-                <ContentArea Title="Squad" Content="@_acclog.Squad"></ContentArea>
-            </div>
-        }
-        @if (_acclog.Unit.Any())
-        {
-            <div class="col-lg-@_colSize">
-                <ContentArea Title="Unit" Content="@_acclog.Unit"></ContentArea>
-            </div>
-        }
-        @if (_acclog.TTransactions.Any())
-        {
-            <div class="col-lg-@_colSize">
-                <ContentArea Title="T$ Transactions" Content="@_acclog.TTransactions"></ContentArea>
-            </div>
-        }
-        @if (_acclog.GTransactions.Any())
-        {
-            <div class="col-lg-@_colSize">
-                <ContentArea Title="G$ Transactions" Content="@_acclog.GTransactions"></ContentArea>
-            </div>
-        }
-        @if (_acclog.PlayerTransactions.Any())
-        {
-            <div class="col-lg-@_colSize">
-                <ContentArea Title="P2P Transactions" Content="@_acclog.PlayerTransactions"></ContentArea>
-            </div>
-        }
-        @if (_acclog.JoinQuit.Any())
-        {
-            <div class="col-lg-@_colSize">
-                <ContentArea Title="JoinQuit" Content="@_acclog.JoinQuit"></ContentArea>
-            </div>
-        }
-        @if (_acclog.Hit.Any())
-        {
-            <div class="col-lg-@_colSize">
-                <ContentArea Title="Hits" Content="@_acclog.Hit"></ContentArea>
-            </div>
-        }
-        @if (_acclog.Occupation.Any())
-        {
-            <div class="col-lg-@_colSize">
-                <ContentArea Title="Occupation" Content="@_acclog.Occupation"></ContentArea>
-            </div>
-        }
-        @if (_acclog.Other.Any())
-        {
-            <div class="col-lg-@_colSize">
-                <ContentArea Title="Other" Content="@_acclog.Other"></ContentArea>
-            </div>
+            foreach (var col in _data)
+            {
+                if (col.Value != null && col.Value.Any())
+                {
+                    <div class="col-lg-6">
+                        <ContentArea Title="@col.Key" Content="@col.Value"></ContentArea>
+                    </div>
+                }
+            }
         }
     }
     catch (Exception e)
@@ -159,9 +51,11 @@
     private string _input;
     private Acclog _acclog;
     private int _colSize;
+    private IDictionary<string, List<string>> _data;
 
     protected override void OnInitialized()
     {
+        _data = new Dictionary<string, List<string>>();
         _colSize = 6;
         _input = "";
         _acclog = new Acclog();
@@ -172,6 +66,30 @@
     {
         _acclog = new Acclog();
         _acclog.Divide(_input);
+        _data = new Dictionary<string, List<string>>();
+        _data.Add("Emergency", _acclog.Emergency);
+        _data.Add("Local", _acclog.Local);
+        _data.Add("Main", _acclog.Main);
+        _data.Add("Team", _acclog.Team);
+        _data.Add("Country", _acclog.Country);
+        _data.Add("Advert", _acclog.Advert);
+        _data.Add("Occupation", _acclog.Occupation);
+        _data.Add("T$ Transactions", _acclog.TTransactions);
+        _data.Add("G$ Transactions", _acclog.GTransactions);
+        _data.Add("P2P Transactions", _acclog.PlayerTransactions);
+        _data.Add("KilL/Deaths", _acclog.KillDeaths);
+        _data.Add("Join/Quit", _acclog.JoinQuit);
+        _data.Add("SMS", _acclog.Sms);
+        _data.Add("FMSG", _acclog.Fmsg);
+        _data.Add("Group/Alliance", _acclog.Group);
+        _data.Add("Squad", _acclog.Squad);
+        _data.Add("Unit", _acclog.Unit);
+        _data.Add("Contact Admin", _acclog.Cad);
+        _data.Add("Support", _acclog.Support);
+        _data.Add("Hit", _acclog.Hit);
+        _data.Add("Inventory", _acclog.Inventory);
+        _data.Add("Trading", _acclog.Trading);
+        _data.Add("Other", _acclog.Other);
     }
 
 }
