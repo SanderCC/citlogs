@@ -1,0 +1,61 @@
+﻿@page "/EventManagement/Application"
+@using Manager
+<h3>Application</h3>
+
+@if (_result.Error != null)
+{
+    <h5>ERROR: @_result.Error</h5>
+} 
+else if (_result.Duration > 0)
+{
+     <h5>Duration: @_result.Duration seconds</h5>
+}
+
+<div class="row">
+    <div class="col-lg-8">
+        <EditForm Model="_input" OnSubmit="ExecuteDivider">
+            <textarea placeholder="Paste your logs here..." class="form-control" rows="7" @bind="_input"></textarea>
+            <button class="btn btn-dark">Render</button>
+        </EditForm>
+    </div>
+    <div class="col-lg-4">
+        <CatGif></CatGif>
+    </div>
+</div>
+<div class="row">
+    @try
+    {
+        if (_result.Format != null)
+        {
+            <ContentArea Title="Format" Content="@_result.Format" Rows=8 DisplayHits="@displayHits"></ContentArea>
+        }
+        else
+        {
+            <p>Insert data first</p>
+        }
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e);
+    }
+</div>
+
+@code {
+    private string _input;
+    private EMApplog _result;
+    private bool displayHits = false;
+
+    protected override void OnInitialized()
+    {
+        _result = new EMApplog();
+        _input = "";
+        base.OnInitialized();
+    }
+
+    private void ExecuteDivider()
+    {
+        _result = new EMApplog();
+        _result.Divide(DateTime.UtcNow, DateTime.UtcNow, _input);
+    }
+
+}
