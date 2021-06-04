@@ -40,6 +40,7 @@ namespace Manager
                 Error = e.Message;
             }
             Filtered.Sort();
+            Filtered = Filtered.Distinct().ToList();
             Duration = (DateTime.Now - start).TotalSeconds;
             return Filtered;
         }
