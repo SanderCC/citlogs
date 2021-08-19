@@ -28,7 +28,7 @@ namespace Manager
             {
                 Error = null;
                 DateTime start = DateTime.Now;
-                List<string> lines = logs.Split("\n").ToList();
+                List<string> lines = logs.Split('\n').ToList();
                 logs = null;
                 EventWarps = lines.Count(l => l.Contains(" warped to the current event") && l.Contains(" (EM) "));
                 LoginHits = lines.Count(l => l.Contains(" LOGIN MISC: "));

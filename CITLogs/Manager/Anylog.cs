@@ -21,8 +21,8 @@ namespace Manager
             
             try
             {
-                var inputArray = input.Split("\n");
-                foreach (string filter in filterInput.Split("\n"))
+                var inputArray = input.Split('\n');
+                foreach (string filter in filterInput.Split('\n'))
                 {
                     filters.Add(filter.ToLower());
                 }
@@ -31,7 +31,9 @@ namespace Manager
                 {
                     if (inputArray.Any(s => s.ToLower().Contains(filter)))
                     {
-                        Filtered.AddRange(inputArray.Where(s => s.Contains(filter,StringComparison.CurrentCultureIgnoreCase)));
+                        Filtered.AddRange(
+                            inputArray.Where(s => s.Contains(filter))
+                            );
                     }
                 }
             }

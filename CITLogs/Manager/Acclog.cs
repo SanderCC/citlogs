@@ -64,7 +64,7 @@ namespace Manager
             DateTime start = DateTime.Now;
             try
             {
-                foreach (string line in content.Split("\n"))
+                foreach (string line in content.Split('\n'))
                 {
                     if (line.Length < 5) Console.WriteLine("Line too small, skipped.");
                     else if (line.Contains(" TC: ")) Team.Add(line);

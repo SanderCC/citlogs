@@ -1,0 +1,97 @@
+.btn {
+    margin: 5px;
+}
+
+.contentArea {
+    width:100%;
+    font-size: 9px;
+    margin-bottom: 10px;
+}
+
+.contentArea textarea {
+    font-size: 9px;
+}
+
+.catGif {
+    max-width:100%;
+    max-height:400px;
+    cursor:pointer;
+    display: block;
+    border-radius:5px;
+    box-shadow: 0 0 5px black;
+    margin: 5px;
+}
+.catGif:hover {
+    cursor:pointer;
+    opacity:0.9;
+}
+@media (max-width: 1000px) {
+    .catGif {
+        display: none;
+    }
+}
+
+footer {
+    padding:10px;
+    width: fit-content;
+    display:block;
+    color:gray;
+    margin: 10px auto;
+    font-size: 9px;
+    text-align: center;
+    opacity:0.5;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+}
+footer:hover {
+    opacity:1;
+}
+
+.btn {
+    margin: 5px;
+}
+
+.contentArea {
+    width:100%;
+    font-size: 9px;
+    margin-bottom: 10px;
+}
+
+.contentArea textarea {
+    font-size: 9px;
+}
+
+.catGif {
+    max-width:100%;
+    max-height:400px;
+    cursor:pointer;
+    display: block;
+    border-radius:5px;
+    box-shadow: 0 0 5px black;
+    margin: 5px;
+}
+.catGif:hover {
+    cursor:pointer;
+    opacity:0.9;
+}
+@media (max-width: 1000px) {
+    .catGif {
+        display: none;
+    }
+}
+
+footer {
+    padding:10px;
+    width: fit-content;
+    display:block;
+    color:gray;
+    margin: 10px auto;
+    font-size: 9px;
+    text-align: center;
+    opacity:0.5;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+}
+footer:hover {
+    opacity:1;
+}
