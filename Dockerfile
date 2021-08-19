@@ -3,7 +3,7 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet-framework:4.7.2-sdk AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["CITLogs/Manager/Manager.csproj", "Manager/"]
 COPY ["CITLogs/UI_WASM/UI_WASM.csproj", "UI_WASM/"]
