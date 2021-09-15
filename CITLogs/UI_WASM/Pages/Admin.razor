@@ -1,13 +1,13 @@
-﻿@page "/Account"
+@page "/Admin"
 @using Manager
-<h3>Account Logs</h3>
+<h3>Staff Review</h3>
 
-@if (_acclog.Error != null)
+@if (_logDivider.Error != null)
 {
-    <h5>ERROR: @_acclog.Error</h5>
-} else if (_acclog.Duration > 0)
+    <h5>ERROR: @_logDivider.Error</h5>
+} else if (_logDivider.Duration > 0)
  {
-     <h5>Duration: @_acclog.Duration seconds</h5>
+     <h5>Duration: @_logDivider.Duration seconds</h5>
  }
 
 <div class="row">
@@ -20,6 +20,10 @@
     <div class="col-lg-4">
         <CatGif></CatGif>
     </div>
+</div>
+<div class="row p-2">
+    <h5>Format:</h5>
+    <textarea class="form-control" readonly>@_logDivider.Format()</textarea>
 </div>
 <div class="row">
     @try
@@ -49,7 +53,7 @@
 
 @code {
     private string _input;
-    private Acclog _acclog;
+    private Adminlog _logDivider;
     private int _colSize;
     private IDictionary<string, List<string>> _data;
 
@@ -58,38 +62,30 @@
         _data = new Dictionary<string, List<string>>();
         _colSize = 6;
         _input = "";
-        _acclog = new Acclog();
+        _logDivider = new Adminlog();
         base.OnInitialized();
     }
 
     private void ExecuteDivider()
     {
-        _acclog = new Acclog();
-        _acclog.Divide(_input);
+        _logDivider = new Adminlog();
+        _logDivider.Divide(_input);
         _data = new Dictionary<string, List<string>>();
-        _data.Add("Emergency", _acclog.Emergency);
-        _data.Add("Local", _acclog.Local);
-        _data.Add("Main", _acclog.Main);
-        _data.Add("Team", _acclog.Team);
-        _data.Add("Country", _acclog.Country);
-        _data.Add("Advert", _acclog.Advert);
-        _data.Add("Occupation", _acclog.Occupation);
-        _data.Add("T$ Transactions", _acclog.TTransactions);
-        _data.Add("G$ Transactions", _acclog.GTransactions);
-        _data.Add("P2P Transactions", _acclog.PlayerTransactions);
-        _data.Add("KilL/Deaths", _acclog.KillDeaths);
-        _data.Add("Join/Quit", _acclog.JoinQuit);
-        _data.Add("SMS", _acclog.Sms);
-        _data.Add("FMSG", _acclog.Fmsg);
-        _data.Add("Group/Alliance", _acclog.Group);
-        _data.Add("Squad", _acclog.Squad);
-        _data.Add("Unit", _acclog.Unit);
-        _data.Add("Contact Admin", _acclog.Cad);
-        _data.Add("Support", _acclog.Support);
-        _data.Add("Hit", _acclog.Hit);
-        _data.Add("Inventory", _acclog.Inventory);
-        _data.Add("Trading", _acclog.Trading);
-        _data.Add("Other", _acclog.Other);
+        _data.Add("Registered Abuse", _logDivider.RegisteredAbuse);
+        _data.Add("Possible Abuse", _logDivider.PossibleAbuse);
+        _data.Add("Duty Related Logs", _logDivider.DutyRelated);
+        _data.Add("CIT Chat", _logDivider.CITC);
+        _data.Add("Login", _logDivider.Login);
+        _data.Add("Login Misc", _logDivider.LoginMisc);
+        _data.Add("Mutes", _logDivider.Mutes);
+        _data.Add("Jails", _logDivider.Jails);
+        _data.Add("Bans", _logDivider.Bans);
+        _data.Add("Logs Fetched", _logDivider.LogsFetched);
+        _data.Add("Contact Admin", _logDivider.Cad);
+        _data.Add("Support", _logDivider.Support);
+        _data.Add("Reports", _logDivider.Reports);
+        _data.Add("Pending Punishments", _logDivider.PendingPunishments);
+        _data.Add("Other", _logDivider.Other);
     }
 
 }

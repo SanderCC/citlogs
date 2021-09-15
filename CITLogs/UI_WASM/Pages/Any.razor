@@ -14,8 +14,8 @@ else if (_any.Duration > 0)
 <div class="row">
     <div class="col-lg-8">
         <EditForm Model="_input" OnSubmit="ExecuteDivider">
-            <textarea placeholder="Paste your logs here..." class="form-control" rows="7" @bind="_input"></textarea>
-            <button class="btn btn-dark">Render</button>
+            <textarea maxlength="@FormDto.MaxLength" placeholder="Paste your logs here..." class="form-control" rows="7" @bind="_input"></textarea>
+            <button class="btn @FormDto.BtnColor">@FormDto.BtnValue</button>
         </EditForm>
     </div>
     <div class="col-lg-4">
