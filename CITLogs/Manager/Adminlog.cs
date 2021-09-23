@@ -63,7 +63,12 @@ namespace Manager
                     else if (line.Contains(" ST ") && (!line.Contains("from 0") && line.Contains("wanted points.")))
                         RegisteredAbuse.Add(line);
                     else if (line.Contains(" ST ") && line.Contains("from 0 wanted points.")) PossibleAbuse.Add(line);
-                    else if (line.Contains("abuse") || line.Contains("recommendation") || line.Contains("leak"))
+                    else if (line.Contains("abuse")
+                             || line.Contains("recommendation")
+                             || line.Contains("leak")
+                             || line.Contains("bias")
+                             || line.Contains("accept")
+                             )
                         PossibleAbuse.Add(line);
 
                     else if (line.Contains("object. ID:")) DutyRelated.Add(line);
