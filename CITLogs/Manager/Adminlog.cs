@@ -12,6 +12,7 @@ namespace Manager
         public List<string> CITC { get; set; } = new List<string>();
         public List<string> Login { get; set; } = new List<string>();
         public List<string> LoginMisc { get; set; } = new List<string>();
+        public List<string> QuitMisc { get; set; } = new List<string>();
         public List<string> Mutes { get; set; } = new List<string>();
         public List<string> Jails { get; set; } = new List<string>();
         public List<string> Bans { get; set; } = new List<string>();
@@ -24,6 +25,7 @@ namespace Manager
         public List<string> RegisteredAbuse { get; set; } = new List<string>();
         public List<string> DutyRelated { get; set; } = new List<string>();
         public List<string> Other { get; set; } = new List<string>();
+        public bool UseSpoilers { get; set; } = false;
 
         public List<string> ActionsTaken()
         {
@@ -46,6 +48,7 @@ namespace Manager
 
                     else if (line.Contains(" LOGIN: ")) Login.Add(line);
                     else if (line.Contains(" LOGIN MISC: ")) LoginMisc.Add(line);
+                    else if (line.Contains(" QUIT MISC: ")) QuitMisc.Add(line);
 
                     else if (line.Contains(" (AA)(BAN) ")) Bans.Add(line);
                     else if (line.Contains(" (AA)(MUTE) ")) Mutes.Add(line);
@@ -123,7 +126,7 @@ namespace Manager
             result += $"\n[b]Contact Admin:[/b] {Cad.Count}";
             result = AddSpoilerFromList(result, Cad);
 
-            result += $"\n[b]Reports:[/b] [CM] actions taken. {Reports.Count}";
+            result += $"\n[b]Reports:[/b] {Reports.Count} [CM] actions taken.";
             result = AddSpoilerFromList(result, Reports);
 
             result += $"\n[b]Abuse:[/b] {RegisteredAbuse.Count}";
@@ -136,13 +139,16 @@ namespace Manager
 
         private string AddSpoilerFromList(string result, List<string> lines)
         {
-            result += " [spoiler]";
-            foreach (var item in lines)
+            if (UseSpoilers)
             {
-                result += $"\n{item}";
-            }
+                result += " [spoiler]";
+                foreach (var item in lines)
+                {
+                    result += $"\n{item}";
+                }
 
-            result += "[/spoiler] ";
+                result += "[/spoiler] ";
+            }
             return result;
         }
 
@@ -152,7 +158,7 @@ namespace Manager
             {
                 string pattern = "PlayTime: ([0-9]+) ";
                 var first = Regex.Match(LoginMisc.First(), pattern);
-                var last = Regex.Match(LoginMisc.Last(), pattern);
+                var last = Regex.Match(QuitMisc.Last(), pattern);
                 double result = (int.Parse(last.Groups[1].Value) - int.Parse(first.Groups[1].Value)) / 60;
                 return $"({last.Groups[1].Value} - {first.Groups[1].Value})/60 = {result}";
             }
@@ -164,14 +170,14 @@ namespace Manager
         {
             if (Login.Any())
             {
-                string pattern = "logged into by [CIT](.*) (.*) (.*) ([A-Z]{2}) Year: ";
-                var match = Regex.Match(Login.First(), pattern).Groups[1].Value;
+                string pattern = " CITC (.*): ";
+                var match = Regex.Match(CITC.First(), pattern).Groups[1].Value;
                 if (match.Length < 1)
                 {
                     return "COULD_NOT_FIND";
                 }
 
-                return match;
+                return match.Replace(":","").Replace(" CITC ", "");
             }
 
             return "COULD_NOT_FIND";
