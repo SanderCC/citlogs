@@ -33,7 +33,6 @@ namespace Manager
             actions.AddRange(Mutes);
             actions.AddRange(Jails);
             actions.AddRange(Bans);
-            actions.AddRange(LogsFetched);
             return actions;
         }
 
@@ -109,7 +108,7 @@ namespace Manager
             result = AddSpoilerFromList(result, CITC);
 
             result +=
-                $"\n[b]Admin actions:[/b] {ActionsTaken().Count - LogsFetched.Count} (+{LogsFetched.Count} Logs opened for L3)";
+                $"\n[b]Admin actions:[/b] {ActionsTaken().Count} (+{LogsFetched.Count} Logs opened for L3)";
             result = AddSpoilerFromList(result, ActionsTaken());
 
             result += $"\n[b]Mutes:[/b] {Mutes.Count}";

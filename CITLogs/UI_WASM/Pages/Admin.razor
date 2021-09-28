@@ -12,13 +12,14 @@
 
 <div class="row">
     <div class="col-lg-8">
-        <EditForm Model="_input" OnSubmit="ExecuteDivider">
-            <textarea maxlength="@FormDto.MaxLength" placeholder="Paste your logs here..." class="form-control" rows="7" @bind="_input"></textarea>
+        <EditForm Model="_parserInput" OnSubmit="ExecuteDivider">
+            <textarea maxlength="@FormDto.MaxLength" placeholder="Paste your logs here..." class="form-control" rows="7" @bind="_parserInput.Input"></textarea>
+            <input type="checkbox" bind="@_parserInput.UseSpoilers" class="m3" />
             <button class="btn @FormDto.BtnColor">@FormDto.BtnValue</button>
         </EditForm>
     </div>
     <div class="col-lg-4">
-        <CatGif></CatGif>
+        <CatGif/>
     </div>
 </div>
 <div class="row p-2">
@@ -52,16 +53,22 @@
 </div>
 
 @code {
-    private string _input;
     private Adminlog _logDivider;
     private int _colSize;
     private IDictionary<string, List<string>> _data;
+    private ParserInput _parserInput;
+
+    private class ParserInput
+    {
+        public string Input { get; set; }
+        public bool UseSpoilers { get; set; }
+    }
 
     protected override void OnInitialized()
     {
+        _parserInput = new ParserInput();
         _data = new Dictionary<string, List<string>>();
         _colSize = 6;
-        _input = "";
         _logDivider = new Adminlog();
         base.OnInitialized();
     }
@@ -69,7 +76,8 @@
     private void ExecuteDivider()
     {
         _logDivider = new Adminlog();
-        _logDivider.Divide(_input);
+        _logDivider.UseSpoilers = _parserInput.UseSpoilers;
+        _logDivider.Divide(_parserInput.Input);
         _data = new Dictionary<string, List<string>>();
         _data.Add("Registered Abuse", _logDivider.RegisteredAbuse);
         _data.Add("Possible Abuse", _logDivider.PossibleAbuse);
@@ -77,9 +85,7 @@
         _data.Add("CIT Chat", _logDivider.CITC);
         _data.Add("Login", _logDivider.Login);
         _data.Add("Login Misc", _logDivider.LoginMisc);
-        _data.Add("Mutes", _logDivider.Mutes);
-        _data.Add("Jails", _logDivider.Jails);
-        _data.Add("Bans", _logDivider.Bans);
+        _data.Add("Actions Taken", _logDivider.ActionsTaken());
         _data.Add("Logs Fetched", _logDivider.LogsFetched);
         _data.Add("Contact Admin", _logDivider.Cad);
         _data.Add("Support", _logDivider.Support);
