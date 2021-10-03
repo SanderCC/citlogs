@@ -75,7 +75,6 @@ namespace Manager
                         PossibleAbuse.Add(line);
 
                     else if (line.Contains("object. ID:")) DutyRelated.Add(line);
-                    else if (line.Contains("modified cash")) DutyRelated.Add(line);
                     else if (line.Contains("changed account:")) DutyRelated.Add(line);
                     else if (line.Contains("changed the password of account")) DutyRelated.Add(line);
                     else if (line.Contains("checked the PIN code of account")) DutyRelated.Add(line);
