@@ -135,7 +135,28 @@ namespace Manager
 
             result += $"\n[b]Duty related actions:[/b] {defaultValue}";
             result = AddSpoilerFromList(result, DutyRelated);
+            result += $"\n[i]Additional notes:[/i] {AdditionalNotes()}";
             return result;
+        }
+
+        private string AdditionalNotes()
+        {
+            double actionsCounter = 0;
+            actionsCounter += Bans.Count * 1.3;
+            actionsCounter += Mutes.Count;
+            actionsCounter += Jails.Count * 1.1;
+            actionsCounter += Reports.Count * 1.4;
+            actionsCounter += CITC.Count * 0.2;
+            if (actionsCounter < 30)
+            {
+                return "Low in-game activity";
+            }
+            if (actionsCounter < 60)
+            {
+                return "In-game activity is fine with room for improvement";
+            }
+
+            return "Decent in-game activity";
         }
 
         private string AddSpoilerFromList(string result, List<string> lines)
