@@ -96,6 +96,8 @@ namespace Manager
         {
             const string defaultValue = "TO_BE_FILLED_IN";
             string result = "";
+            result += $"[center][size=13pt][b]Team 1:[/b][/size][/center]";
+            result += $"L<?>. [url=https://cit.gg/index.php?action=profile;u=FORUMCODE]{GetNickname()}[/url] ({GetAccount()}):";
             result += $"[b]Name:[/b] {GetNickname()}";
             result += $"\n[b]Account name:[/b] {GetAccount()}";
             result += $"\n[b]Rank:[/b] {defaultValue}";
@@ -128,10 +130,10 @@ namespace Manager
             result += $"\n[b]Reports:[/b] {Reports.Count} [CM] actions taken.";
             result = AddSpoilerFromList(result, Reports);
 
-            result += $"\n[b]Abuse:[/b] {RegisteredAbuse.Count}";
+            result += $"\n[b]Abuse:[/b] {defaultValue}";
             result = AddSpoilerFromList(result, RegisteredAbuse);
 
-            result += $"\n[b]Duty related actions:[/b] {DutyRelated.Count}";
+            result += $"\n[b]Duty related actions:[/b] {defaultValue}";
             result = AddSpoilerFromList(result, DutyRelated);
             return result;
         }
