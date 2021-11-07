@@ -135,7 +135,7 @@ namespace Manager
 
             result += $"\n[b]Duty related actions:[/b] {defaultValue}";
             result = AddSpoilerFromList(result, DutyRelated);
-            result += $"\n[i]Additional notes:[/i] {AdditionalNotes()}";
+            result += $"\n\n[i]Additional notes:[/i] {AdditionalNotes()}";
             return result;
         }
 
