@@ -58,7 +58,17 @@ namespace Manager
                     else if (line.Contains(" opened '") && line.Contains(" ms")) LogsFetched.Add(line);
                     else if (line.Contains(" [CM] ") && line.Contains(" set ")) Reports.Add(line);
                     else if (line.Contains("[Complaint ID") && line.Contains(" replied with ")) Reports.Add(line);
-
+                    else if (line.Contains(" warped to ") || line.Contains(" WL: "))
+                    {
+                        if (line.Contains("WL: 0"))
+                        {
+                            RegisteredAbuse.Add(line);
+                        }
+                        else
+                        {
+                            PossibleAbuse.Add(line);
+                        }
+                    }
                     else if (line.Contains(" warped to ") && !line.Contains(" WL: 0") && !line.Contains(" (EM) "))
                         RegisteredAbuse.Add(line);
                     else if (line.Contains(" warped to ") && line.Contains(" WL: 0") && !line.Contains(" (EM) "))
@@ -136,6 +146,7 @@ namespace Manager
             result += $"\n[b]Duty related actions:[/b] {defaultValue}";
             result = AddSpoilerFromList(result, DutyRelated);
             result += $"\n\n[i]Additional notes:[/i] {AdditionalNotes()}";
+            result += "\n\n[hr]\n\n";
             return result;
         }
 
