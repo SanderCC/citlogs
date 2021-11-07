@@ -9,7 +9,7 @@ namespace Manager
     {
         public string Error { get; set; } = null;
         public double Duration { get; set; } = 0;
-        public List<string> CITC { get; set; } = new List<string>();
+        public List<string> CitC { get; set; } = new List<string>();
         public List<string> Login { get; set; } = new List<string>();
         public List<string> LoginMisc { get; set; } = new List<string>();
         public List<string> QuitMisc { get; set; } = new List<string>();
@@ -43,7 +43,7 @@ namespace Manager
             {
                 foreach (string line in content.Split('\n'))
                 {
-                    if (line.Contains(" CITC ")) CITC.Add(line);
+                    if (line.Contains(" CITC ")) CitC.Add(line);
 
                     else if (line.Contains(" LOGIN: ")) Login.Add(line);
                     else if (line.Contains(" LOGIN MISC: ")) LoginMisc.Add(line);
@@ -106,8 +106,8 @@ namespace Manager
             result += $"\n[b]Login hits:[/b] {Login.Count}";
             result = AddSpoilerFromList(result, Login);
 
-            result += $"\n[b]CITC hits:[/b] {CITC.Count}";
-            result = AddSpoilerFromList(result, CITC);
+            result += $"\n[b]CITC hits:[/b] {CitC.Count}";
+            result = AddSpoilerFromList(result, CitC);
 
             result +=
                 $"\n[b]Admin actions:[/b] {ActionsTaken().Count} (+{LogsFetched.Count} Logs opened for L3)";
@@ -146,7 +146,7 @@ namespace Manager
             actionsCounter += Mutes.Count;
             actionsCounter += Jails.Count * 1.1;
             actionsCounter += Reports.Count * 1.4;
-            actionsCounter += CITC.Count * 0.2;
+            actionsCounter += CitC.Count * 0.2;
             if (actionsCounter < 30)
             {
                 return "Low in-game activity";
@@ -193,7 +193,7 @@ namespace Manager
             if (Login.Any())
             {
                 string pattern = " CITC (.*): ";
-                var match = Regex.Match(CITC.First(), pattern).Groups[1].Value;
+                var match = Regex.Match(CitC.First(), pattern).Groups[1].Value;
                 if (match.Length < 1)
                 {
                     return "COULD_NOT_FIND";
