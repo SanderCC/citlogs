@@ -98,7 +98,7 @@ namespace Manager
             string result = "";
             result += $"[center][size=13pt][b]Team <?>:[/b][/size][/center][br][br]\n";
             result += $"L<?>. [url=https://cit.gg/index.php?action=profile;u=FORUMCODE]{GetNickname()}[/url] ({GetAccount()}):";
-            result += $"\n[b]Name:[/b] {GetNickname()}";
+            result += $"\n\n[b]Name:[/b] {GetNickname()}";
             result += $"\n[b]Account name:[/b] {GetAccount()}";
             result += $"\n[b]Rank:[/b] {defaultValue}";
             result += $"\n[b]Duties:[/b] {defaultValue}";
