@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 
 namespace Manager
@@ -59,83 +61,96 @@ namespace Manager
             Trading = new List<string>();
         }
 
-        public void Divide(string content)
+        public Task Divide(string content)
         {
             DateTime start = DateTime.Now;
+            var tasks = new List<Task>();
             try
             {
-                foreach (string line in content.Split('\n'))
-                {
-                    if (line.Length < 5) Console.WriteLine("Line too small, skipped.");
-                    else if (line.Contains(" TC: ")) Team.Add(line);
-                    else if (line.Contains(" MC LS:")) Main.Add(line);
-                    else if (line.Contains(" MC LV:")) Main.Add(line);
-                    else if (line.Contains(" MC SF:")) Main.Add(line);
-                    else if (line.Contains(" (ADVERT) ")) Advert.Add(line);
-                    else if (line.Contains(" (MYC ")) Country.Add(line);
-
-                    else if (line.Contains(" (sup) ")) Support.Add(line);
-                    else if (line.Contains(" (cad) ")) Cad.Add(line);
-
-                    else if (line.Contains(" KILL: ")) KillDeaths.Add(line);
-                    else if (line.Contains(" DEATH: ")) KillDeaths.Add(line);
-                    else if (line.Contains(" killed themselves via command")) KillDeaths.Add(line);
-
-                    else if (line.Contains(" GrC (")) Group.Add(line);
-                    else if (line.Contains(" SC (")) Squad.Add(line);
-                    else if (line.Contains(" UC (")) Unit.Add(line);
-                    else if (line.Contains(" (alliance) ")) Group.Add(line);
-
-                    else if (line.Contains(" SMS from ")) Sms.Add(line);
-                    else if (line.Contains(" SMS to ")) Sms.Add(line);
-
-                    else if (line.Contains(" T$ "))
-                    {
-                        TTransactions.Add(line);
-                        if(line.Contains("(CITphoneTran")) PlayerTransactions.Add(line);
-                        else if (line.Contains("CIThit")) Hit.Add(line);
-                    }
-                    else if (line.Contains(" G$ "))
-                    {
-                        GTransactions.Add(line);
-                        if(line.Contains("(CITphoneTran")) PlayerTransactions.Add(line);
-                        else if (line.Contains("CIThit")) Hit.Add(line);
-                    }
-                    else if(line.Contains(" BT: ")) PlayerTransactions.Add(line);
-                    
-                    else if (line.Contains(" (FMSG) ")) Fmsg.Add(line);
-                    else if (line.Contains(" (LOCF)[")) Fmsg.Add(line);
-
-                    else if (line.Contains(" (LOC)[")) Local.Add(line);
-                    else if (line.Contains(" (LOC)[")) Local.Add(line);
-                    else if (line.Contains(" (LOC)[")) Local.Add(line);
-                    
-                    else if (line.Contains(" LC ")) Emergency.Add(line);
-                    
-                    else if (line.Contains(" GroupPromotion: ")) Group.Add(line);
-                    
-                    else if (line.Contains(" modify ")) Inventory.Add(line);
-                    else if (line.Contains(" Crafting ")) Inventory.Add(line);
-                    else if (line.Contains(") sold ")) Trading.Add(line);
-                    else if (line.Contains(" (Bought ")) Trading.Add(line);
-
-                    else if (line.Contains(" NC ")) JoinQuit.Add(line);
-                    else if (line.Contains(" LOGIN MISC: ")) JoinQuit.Add(line);
-                    else if (line.Contains(" LOGIN: ")) JoinQuit.Add(line);
-                    else if (line.Contains(" LOGIN WEPS: ")) JoinQuit.Add(line);
-                    else if (line.Contains(" QUIT: ")) JoinQuit.Add(line);
-                    else if (line.Contains(" QUIT MISC: ")) JoinQuit.Add(line);
-                    else if (line.Contains(" QUIT WEPS: ")) JoinQuit.Add(line);
-                    else if (line.Contains(" QUIT WEPS: ")) JoinQuit.Add(line);
-                    
-                    else Other.Add(line);
-                }
+                tasks.AddRange(content.Split('\n').Select(DivideLine));
+                tasks.ForEach(AwaitLine);
             }
             catch (Exception e)
             {
-                Error = e.Message;
+                return Task.FromException(e);
             }
+
             Duration = (DateTime.Now - start).TotalSeconds;
+            return Task.CompletedTask;
+        }
+
+        private static async void AwaitLine(Task task)
+        {
+            await task;
+        }
+
+        public Task DivideLine(string line)
+        {
+            if (line.Length < 5) Console.WriteLine("Line too small, skipped.");
+            else if (line.Contains(" TC: ")) Team.Add(line);
+            else if (line.Contains(" MC LS:")) Main.Add(line);
+            else if (line.Contains(" MC LV:")) Main.Add(line);
+            else if (line.Contains(" MC SF:")) Main.Add(line);
+            else if (line.Contains(" (ADVERT) ")) Advert.Add(line);
+            else if (line.Contains(" (MYC ")) Country.Add(line);
+
+            else if (line.Contains(" (sup) ")) Support.Add(line);
+            else if (line.Contains(" (cad) ")) Cad.Add(line);
+
+            else if (line.Contains(" KILL: ")) KillDeaths.Add(line);
+            else if (line.Contains(" DEATH: ")) KillDeaths.Add(line);
+            else if (line.Contains(" killed themselves via command")) KillDeaths.Add(line);
+
+            else if (line.Contains(" GrC (")) Group.Add(line);
+            else if (line.Contains(" SC (")) Squad.Add(line);
+            else if (line.Contains(" UC (")) Unit.Add(line);
+            else if (line.Contains(" (alliance) ")) Group.Add(line);
+
+            else if (line.Contains(" SMS from ")) Sms.Add(line);
+            else if (line.Contains(" SMS to ")) Sms.Add(line);
+
+            else if (line.Contains(" T$ "))
+            {
+                TTransactions.Add(line);
+                if (line.Contains("(CITphoneTran")) PlayerTransactions.Add(line);
+                else if (line.Contains("CIThit")) Hit.Add(line);
+            }
+            else if (line.Contains(" G$ "))
+            {
+                GTransactions.Add(line);
+                if (line.Contains("(CITphoneTran")) PlayerTransactions.Add(line);
+                else if (line.Contains("CIThit")) Hit.Add(line);
+            }
+            else if (line.Contains(" BT: ")) PlayerTransactions.Add(line);
+
+            else if (line.Contains(" (FMSG) ")) Fmsg.Add(line);
+            else if (line.Contains(" (LOCF)[")) Fmsg.Add(line);
+
+            else if (line.Contains(" (LOC)[")) Local.Add(line);
+            else if (line.Contains(" (LOC)[")) Local.Add(line);
+            else if (line.Contains(" (LOC)[")) Local.Add(line);
+
+            else if (line.Contains(" LC ")) Emergency.Add(line);
+
+            else if (line.Contains(" GroupPromotion: ")) Group.Add(line);
+
+            else if (line.Contains(" modify ")) Inventory.Add(line);
+            else if (line.Contains(" Crafting ")) Inventory.Add(line);
+            else if (line.Contains(") sold ")) Trading.Add(line);
+            else if (line.Contains(" (Bought ")) Trading.Add(line);
+
+            else if (line.Contains(" NC ")) JoinQuit.Add(line);
+            else if (line.Contains(" LOGIN MISC: ")) JoinQuit.Add(line);
+            else if (line.Contains(" LOGIN: ")) JoinQuit.Add(line);
+            else if (line.Contains(" LOGIN WEPS: ")) JoinQuit.Add(line);
+            else if (line.Contains(" QUIT: ")) JoinQuit.Add(line);
+            else if (line.Contains(" QUIT MISC: ")) JoinQuit.Add(line);
+            else if (line.Contains(" QUIT WEPS: ")) JoinQuit.Add(line);
+            else if (line.Contains(" QUIT WEPS: ")) JoinQuit.Add(line);
+
+            else Other.Add(line);
+            
+            return Task.CompletedTask;
         }
     }
 }
