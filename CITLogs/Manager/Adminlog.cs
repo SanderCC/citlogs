@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using Manager.inherited;
 
 namespace Manager
 {
-    public class Adminlog
+    public class Adminlog : Divider
     {
-        public string Error { get; set; } = null;
-        public double Duration { get; set; } = 0;
         public List<string> CitC { get; set; } = new List<string>();
         public List<string> Login { get; set; } = new List<string>();
         public List<string> LoginMisc { get; set; } = new List<string>();
@@ -36,81 +35,79 @@ namespace Manager
             return actions;
         }
 
-        public void Divide(string content)
+        public override Task DivideLine(string line)
         {
-            DateTime start = DateTime.Now;
-            try
+            if (line.Contains(" CITC ")) CitC.Add(line);
+
+            else if (line.Contains(" LOGIN: ")) Login.Add(line);
+            else if (line.Contains(" LOGIN MISC: ")) LoginMisc.Add(line);
+            else if (line.Contains(" QUIT MISC: ")) QuitMisc.Add(line);
+
+            else if (line.Contains(" (AA)(BAN) ")) Bans.Add(line);
+            else if (line.Contains(" (AA)(MUTE) ")) Mutes.Add(line);
+            else if (line.Contains(" (AA)(JAIL) ")) Jails.Add(line);
+            else if (line.Contains(" (AA)(CONTACTADMIN) ")) Cad.Add(line);
+            else if (line.Contains(" (AA)(SUPPORT) ")) Support.Add(line);
+
+            else if (line.Contains(" opened '") && line.Contains(" ms")) LogsFetched.Add(line);
+            else if (line.Contains(" [CM] ") && line.Contains(" set ")) Reports.Add(line);
+            else if (line.Contains("[Complaint ID") && line.Contains(" replied with ")) Reports.Add(line);
+            else if (line.Contains(" warped to ") || line.Contains(" WL: "))
             {
-                foreach (string line in content.Split('\n'))
+                if (line.Contains("WL: 0") || line.Contains("with 0 stars Dim: 0"))
                 {
-                    if (line.Contains(" CITC ")) CitC.Add(line);
-
-                    else if (line.Contains(" LOGIN: ")) Login.Add(line);
-                    else if (line.Contains(" LOGIN MISC: ")) LoginMisc.Add(line);
-                    else if (line.Contains(" QUIT MISC: ")) QuitMisc.Add(line);
-
-                    else if (line.Contains(" (AA)(BAN) ")) Bans.Add(line);
-                    else if (line.Contains(" (AA)(MUTE) ")) Mutes.Add(line);
-                    else if (line.Contains(" (AA)(JAIL) ")) Jails.Add(line);
-                    else if (line.Contains(" (AA)(CONTACTADMIN) ")) Cad.Add(line);
-                    else if (line.Contains(" (AA)(SUPPORT) ")) Support.Add(line);
-
-                    else if (line.Contains(" opened '") && line.Contains(" ms")) LogsFetched.Add(line);
-                    else if (line.Contains(" [CM] ") && line.Contains(" set ")) Reports.Add(line);
-                    else if (line.Contains("[Complaint ID") && line.Contains(" replied with ")) Reports.Add(line);
-                    else if (line.Contains(" warped to ") || line.Contains(" WL: "))
-                    {
-                        if (line.Contains("WL: 0") || line.Contains("with 0 stars Dim: 0"))
-                        {
-                            PossibleAbuse.Add(line);
-                        }
-                        else
-                        {
-                            RegisteredAbuse.Add(line);
-                        }
-                    }
-                    /*else if (line.Contains(" warped to ") && !line.Contains(" WL: 0") && !line.Contains(" (EM) "))
-                        RegisteredAbuse.Add(line);
-                    else if (line.Contains(" warped to ") && line.Contains(" WL: 0") && !line.Contains(" (EM) "))
-                        PossibleAbuse.Add(line);
-                    else if (line.Contains(" ST ") && (!line.Contains("from 0") && line.Contains("wanted points.")))
-                        RegisteredAbuse.Add(line);*/
-                    else if (line.Contains(" ST ") && line.Contains("from 0 wanted points.")) PossibleAbuse.Add(line);
-                    else if (line.Contains("abuse")
-                             || line.Contains("recommendation")
-                             || line.Contains("leak")
-                             || line.Contains("bias")
-                             || line.Contains("accept")
-                             || line.Contains("jcm")
-                             || line.Contains("rcm")
-                             || line.Contains("scm")
-                             )
-                        PossibleAbuse.Add(line);
-
-                    else if (line.Contains("object. ID:")) DutyRelated.Add(line);
-                    else if (line.Contains("changed account:")) DutyRelated.Add(line);
-                    else if (line.Contains("changed the password of account")) DutyRelated.Add(line);
-                    else if (line.Contains("checked the PIN code of account")) DutyRelated.Add(line);
-                    else if (line.Contains("zone 0 p")) DutyRelated.Add(line);
-
-                    else if (line.Contains(" (PP) ")) PendingPunishments.Add(line);
-                    else Other.Add(line);
+                    PossibleAbuse.Add(line);
+                }
+                else
+                {
+                    RegisteredAbuse.Add(line);
                 }
             }
-            catch (Exception e)
-            {
-                Error = e.Message;
-            }
+            /*else if (line.Contains(" warped to ") && !line.Contains(" WL: 0") && !line.Contains(" (EM) "))
+                RegisteredAbuse.Add(line);
+            else if (line.Contains(" warped to ") && line.Contains(" WL: 0") && !line.Contains(" (EM) "))
+                PossibleAbuse.Add(line);
+            else if (line.Contains(" ST ") && (!line.Contains("from 0") && line.Contains("wanted points.")))
+                RegisteredAbuse.Add(line);*/
+            else if (line.Contains(" ST ") && line.Contains("from 0 wanted points.")) PossibleAbuse.Add(line);
+            else if (line.Contains("abuse")
+                     || line.Contains("recommendation")
+                     || line.Contains("leak")
+                     || line.Contains("bias")
+                     || line.Contains("accept")
+                     || line.Contains("jcm")
+                     || line.Contains("rcm")
+                     || line.Contains("scm")
+                    )
+                PossibleAbuse.Add(line);
 
-            Duration = (DateTime.Now - start).TotalSeconds;
+            else if (line.Contains("object. ID:")) DutyRelated.Add(line);
+            else if (line.Contains("changed account:")) DutyRelated.Add(line);
+            else if (line.Contains("changed the password of account")) DutyRelated.Add(line);
+            else if (line.Contains("checked the PIN code of account")) DutyRelated.Add(line);
+            else if (line.Contains("zone 0 p")) DutyRelated.Add(line);
+
+            else if (line.Contains(" (PP) ")) PendingPunishments.Add(line);
+            else Other.Add(line);
+            return Task.CompletedTask;
+        }
+
+        private string GetLevel()
+        {
+            if (PossibleAbuse.Any(l => l.Contains("Job: L5 Staff WL:"))) return "4";
+            if (PossibleAbuse.Any(l => l.Contains("Job: L4 Staff WL:"))) return "4";
+            if (PossibleAbuse.Any(l => l.Contains("Job: L3 Staff WL:"))) return "3";
+            if (PossibleAbuse.Any(l => l.Contains("Job: L2 Staff WL:"))) return "2";
+            return PossibleAbuse.Any(l => l.Contains("Job: L1 Staff WL:")) ? "1" : "<?>";
         }
 
         public string Format()
         {
             const string defaultValue = "TO_BE_FILLED_IN";
             string result = "";
-            result += $"[center][size=13pt][b]Team <?>:[/b][/size][/center][br][br]\n";
-            result += $"L<?>. [url=https://cit.gg/index.php?action=profile;u=FORUMCODE]{GetNickname()}[/url] ({GetAccount()}):";
+            result += $"[center][size=13pt][b]Team {GetLevel()}:[/b][/size][/center][br][br]\n";
+            result +=
+                $"L{GetLevel()}. [url=https://cit.gg/index.php?action=profile;u=FORUMCODE]{GetNickname()}[/url] ({GetAccount()}):";
             result += $"\n\n[b]Name:[/b] {GetNickname()}";
             result += $"\n[b]Account name:[/b] {GetAccount()}";
             result += $"\n[b]Rank:[/b] {defaultValue}";
@@ -165,6 +162,7 @@ namespace Manager
             {
                 return "Low in-game activity";
             }
+
             if (actionsCounter < 60)
             {
                 return "In-game activity is fine with room for improvement";
@@ -185,6 +183,7 @@ namespace Manager
 
                 result += "[/spoiler] ";
             }
+
             return result;
         }
 
@@ -196,7 +195,7 @@ namespace Manager
                 var first = Regex.Match(LoginMisc.First(), pattern);
                 var last = Regex.Match(QuitMisc.Last(), pattern);
                 double result = (int.Parse(last.Groups[1].Value) - int.Parse(first.Groups[1].Value)) / 60;
-                return $"({last.Groups[1].Value} - {first.Groups[1].Value})/60 = {result}";
+                return $"({last.Groups[1].Value} - {first.Groups[1].Value})/60 = {result}h";
             }
 
             return "COULD_NOT_CHECK";
@@ -213,7 +212,7 @@ namespace Manager
                     return "COULD_NOT_FIND";
                 }
 
-                return match.Replace(":","").Replace(" CITC ", "");
+                return match.Replace(":", "").Replace(" CITC ", "");
             }
 
             return "COULD_NOT_FIND";

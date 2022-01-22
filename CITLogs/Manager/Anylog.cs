@@ -16,13 +16,13 @@ namespace Manager
 
         public List<string> Filter(string input, string filterInput)
         {
-            DateTime start = DateTime.Now;
-            List<string> filters = new List<string>();
+            var start = DateTime.Now;
+            var filters = new List<string>();
             
             try
             {
                 var inputArray = input.Split('\n');
-                foreach (string filter in filterInput.Split('\n'))
+                foreach (var filter in filterInput.Split('\n'))
                 {
                     filters.Add(filter.ToLower());
                 }
