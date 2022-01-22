@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Manager.inherited;
 
 
 namespace Manager
 {
-    public class Acclog
+    public class Acclog : Divider
     {
-        public string Error { get; set; } = null;
-        public double Duration { get; set; } = 0;
         public List<string> Local { get; set; }
         public List<string> Emergency { get; set; }
         public List<string> Main { get; set; }
@@ -61,30 +59,7 @@ namespace Manager
             Trading = new List<string>();
         }
 
-        public Task Divide(string content)
-        {
-            DateTime start = DateTime.Now;
-            var tasks = new List<Task>();
-            try
-            {
-                tasks.AddRange(content.Split('\n').Select(DivideLine));
-                tasks.ForEach(AwaitLine);
-            }
-            catch (Exception e)
-            {
-                return Task.FromException(e);
-            }
-
-            Duration = (DateTime.Now - start).TotalSeconds;
-            return Task.CompletedTask;
-        }
-
-        private static async void AwaitLine(Task task)
-        {
-            await task;
-        }
-
-        public Task DivideLine(string line)
+        public override Task DivideLine(string line)
         {
             if (line.Length < 5) Console.WriteLine("Line too small, skipped.");
             else if (line.Contains(" TC: ")) Team.Add(line);
