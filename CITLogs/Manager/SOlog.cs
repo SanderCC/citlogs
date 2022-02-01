@@ -32,7 +32,7 @@ namespace Manager
 
         public string Format()
         {
-            var result = "[b][size=14pt]SO Review[/size][/b][hr]";
+            var result = $"[color={GetTitleColor()}][b][size=14pt]SO Review[/size][/b][/color][hr]";
             result += $"\n[b]Nick: [/b]{GetNick()}";
             result += $"\n[b]Account: [/b]{GetAccount()}";
             result += $"\n[b]Hours played: [/b]{GetPlaytime()}h";
@@ -40,6 +40,14 @@ namespace Manager
             result += $"\n[b]Event hits: [/b]{Quizzes.Count+Events.Count} ({Quizzes.Count} quizzes + {Events.Count} events)";
             result += $"\n[b]Advice: [/b]{GetAdvice()}";
             return result;
+        }
+
+        private string GetTitleColor()
+        {
+            if (GetStrikes() > 2) return "darkred";
+            if (GetStrikes() > 1) return "red";
+            if (GetStrikes() > 0) return "orange";
+            return "black";
         }
 
         private string GetNick()
@@ -70,6 +78,15 @@ namespace Manager
             return "COULD_NOT_FIND";
         }
 
+        private int GetStrikes()
+        {
+            var strikes = 0;
+            if (Quizzes.Count + Events.Count < 15) strikes++;
+            if (Team.Count < 70) strikes++;
+            if (GetPlaytime() < 30) strikes++;
+            return strikes;
+        }
+        
         private string GetAdvice()
         {
             var result = "";
