@@ -1,0 +1,96 @@
+﻿@page "/Account"
+@using Manager
+@using UI_Server.DTOs
+<h3>Account Logs</h3>
+
+@if (_acclog.Error != null)
+{
+    <h5>ERROR: @_acclog.Error</h5>
+} else if (_acclog.Duration > 0)
+ {
+     <h5>Duration: @_acclog.Duration seconds</h5>
+ }
+
+<div class="row">
+    <div class="col-lg-8">
+        <EditForm Model="_input" OnSubmit="ExecuteDivider">
+            <textarea maxlength="@FormDto.MaxLength" placeholder="Paste your logs here..." class="form-control" rows="7" @bind="_input"></textarea>
+            <button class="btn @FormDto.BtnColor">@FormDto.BtnValue</button>
+        </EditForm>
+    </div>
+    <div class="col-lg-4">
+        <CatGif />
+    </div>
+</div>
+<div class="row">
+    @try
+    {
+        if (_data.Any())
+        {
+            foreach (var col in _data)
+            {
+                if (col.Value.Any())
+                {
+                    <div class="col-lg-6">
+                        <ContentArea Title="@col.Key" Content="@col.Value" />
+                    </div>
+                }
+            }
+        }
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e);
+    }
+    @for (int i = 0; i < 10; i++)
+    {
+        <br/>
+    }
+</div>
+
+@code {
+    private string _input;
+    private Acclog _acclog;
+    private int _colSize;
+    private IDictionary<string, List<string>> _data;
+
+    protected override void OnInitialized()
+    {
+        _data = new Dictionary<string, List<string>>();
+        _colSize = 6;
+        _input = "";
+        _acclog = new Acclog();
+        base.OnInitialized();
+    }
+
+    private async void ExecuteDivider()
+    {
+        _acclog = new Acclog();
+        await _acclog.Divide(_input);
+        _data = new Dictionary<string, List<string>>();
+        _data.Add("Emergency", _acclog.Emergency);
+        _data.Add("Local", _acclog.Local);
+        _data.Add("Main", _acclog.Main);
+        _data.Add("Team", _acclog.Team);
+        _data.Add("Country", _acclog.Country);
+        _data.Add("Advert", _acclog.Advert);
+        _data.Add("Occupation", _acclog.Occupation);
+        _data.Add("T$ Transactions", _acclog.TTransactions);
+        _data.Add("G$ Transactions", _acclog.GTransactions);
+        _data.Add("P2P Transactions", _acclog.PlayerTransactions);
+        _data.Add("KilL/Deaths", _acclog.KillDeaths);
+        _data.Add("Join/Quit", _acclog.JoinQuit);
+        _data.Add("SMS", _acclog.Sms);
+        _data.Add("FMSG", _acclog.Fmsg);
+        _data.Add("Group/Alliance", _acclog.Group);
+        _data.Add("Squad", _acclog.Squad);
+        _data.Add("Unit", _acclog.Unit);
+        _data.Add("Contact Admin", _acclog.Cad);
+        _data.Add("Support", _acclog.Support);
+        _data.Add("Hit", _acclog.Hit);
+        _data.Add("Inventory", _acclog.Inventory);
+        _data.Add("Trading", _acclog.Trading);
+        _data.Add("Other", _acclog.Other);
+    }
+
+}

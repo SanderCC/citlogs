@@ -1,0 +1,23 @@
+﻿<img 
+    @onclick="UpdateGif"
+    class="catGif"
+    src="@_url"
+    />
+@code {
+    private Random _generator;
+    private int _random;
+    private string _url;
+
+    protected override void OnInitialized()
+    {
+        _generator = new Random();
+        _url = "https://thecatapi.com/api/images/get?format=src&type=gif";
+        base.OnInitialized();
+    }
+
+    private void UpdateGif()
+    {
+        _random = _generator.Next(1, 9999);
+        _url = $"https://thecatapi.com/api/images/get?format=src&type=gif&rand={_random}";
+    }
+}

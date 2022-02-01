@@ -1,0 +1,86 @@
+﻿@page "/SO"
+@using Manager
+<h3>SO Review</h3>
+
+@if (_logDivider.Error != null)
+{
+    <h5>ERROR: @_logDivider.Error</h5>
+} else if (_logDivider.Duration > 0)
+ {
+     <h5>Duration: @_logDivider.Duration seconds</h5>
+ }
+
+<div class="row">
+    <div class="col-lg-8">
+        <EditForm Model="_parserInput" OnSubmit="ExecuteDivider">
+            <textarea maxlength="@FormDto.MaxLength" placeholder="Paste your logs here..." class="form-control" rows="7" @bind="_parserInput.Input"></textarea>
+            <input type="checkbox" bind="@_parserInput.UseSpoilers" class="m3" />
+            <button class="btn @FormDto.BtnColor">@FormDto.BtnValue</button>
+        </EditForm>
+    </div>
+    <div class="col-lg-4">
+        <CatGif/>
+    </div>
+</div>
+<div class="row p-2">
+    <h5>Format:</h5>
+    <textarea class="form-control" readonly>@_logDivider.Format()</textarea>
+</div>
+<div class="row">
+    @try
+    {
+        if (_data != null && _data.Any())
+        {
+            foreach (var col in _data)
+            {
+                if (col.Value != null && col.Value.Any())
+                {
+                    <div class="col-lg-6">
+                        <ContentArea Title="@col.Key" Content="@col.Value"></ContentArea>
+                    </div>
+                }
+            }
+        }
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e);
+    }
+    @for (int i = 0; i < 10; i++)
+    {
+        <br/>
+    }
+</div>
+
+@code {
+    private SOlog _logDivider;
+    private int _colSize;
+    private IDictionary<string, List<string>> _data;
+    private ParserInput _parserInput;
+
+    private class ParserInput
+    {
+        public string Input { get; set; }
+        public bool UseSpoilers { get; set; }
+    }
+
+    protected override void OnInitialized()
+    {
+        _parserInput = new ParserInput();
+        _data = new Dictionary<string, List<string>>();
+        _colSize = 6;
+        _logDivider = new SOlog();
+        base.OnInitialized();
+    }
+
+    private void ExecuteDivider()
+    {
+        _logDivider = new SOlog();
+        _logDivider.Divide(_parserInput.Input);
+        _data = new Dictionary<string, List<string>>();
+        _data.Add("Team chat", _logDivider.Team);
+        _data.Add("Quizzes", _logDivider.Quizzes);
+        _data.Add("Events", _logDivider.Events);
+    }
+
+}

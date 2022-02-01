@@ -1,0 +1,26 @@
+﻿<div class="contentArea">
+    <h3>@Title @if(DisplayHits){<small> (@Content.Count hits)</small>}</h3>
+    <textarea rows="@Rows" class="form-control" readonly>
+    @if (Content.Any())
+    {
+        foreach (string line in Content)
+        {
+            var newLine = line + "\n";
+            @newLine
+        }
+    }    
+</textarea>
+</div>
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; } = "Undefined";
+    [Parameter]
+    public List<string> Content { get; set; }
+    [Parameter]
+    public int Rows { get; set; } = 5;
+    [Parameter]
+    public bool DisplayHits { get; set; } = true;
+
+}

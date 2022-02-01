@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI_WASM", "UI_WASM\UI_WASM.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manager", "Manager\Manager.csproj", "{617AC764-4B7A-49CE-B8C8-040F94C2802B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI_Server", "UI_Server\UI_Server.csproj", "{20618491-1011-48D4-AD87-FE75B73553B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{617AC764-4B7A-49CE-B8C8-040F94C2802B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{617AC764-4B7A-49CE-B8C8-040F94C2802B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{617AC764-4B7A-49CE-B8C8-040F94C2802B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20618491-1011-48D4-AD87-FE75B73553B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20618491-1011-48D4-AD87-FE75B73553B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20618491-1011-48D4-AD87-FE75B73553B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20618491-1011-48D4-AD87-FE75B73553B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

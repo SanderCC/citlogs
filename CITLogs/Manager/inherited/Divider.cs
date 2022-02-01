@@ -12,11 +12,13 @@ namespace Manager.inherited
         
         public Task Divide(string content)
         {
-            DateTime start = DateTime.Now;
+            var start = DateTime.Now;
             var tasks = new List<Task>();
             try
             {
-                tasks.AddRange(content.Split('\n').Select(DivideLine));
+                var contentDivided = content.Split('\n');
+                Console.WriteLine($"{DateTime.Now} Starting with {contentDivided.Length} lines.");
+                tasks.AddRange(contentDivided.Select(DivideLine));
                 tasks.ForEach(AwaitLine);
             }
             catch (Exception e)

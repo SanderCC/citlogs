@@ -62,8 +62,8 @@ namespace Manager
 
         public override Task DivideLine(string line)
         {
-            Console.WriteLine($"Thread {Thread.CurrentThread.ManagedThreadId} started job.");
-            if (line.Length < 5) Console.WriteLine("Line too small, skipped.");
+            Console.WriteLine($"{DateTime.Now} Thread {Thread.CurrentThread.ManagedThreadId} started job.");
+            if (line.Length < 5) Console.WriteLine($"{DateTime.Now} Line too small, skipped.");
             else if (line.Contains(" TC: ")) Team.Add(line);
             else if (line.Contains(" MC LS:")) Main.Add(line);
             else if (line.Contains(" MC LV:")) Main.Add(line);
@@ -127,7 +127,7 @@ namespace Manager
 
             else Other.Add(line);
             
-            Console.WriteLine($"Thread {Thread.CurrentThread.ManagedThreadId} ended job.");
+            Console.WriteLine($"{DateTime.Now} Thread {Thread.CurrentThread.ManagedThreadId} ended job.");
             return Task.CompletedTask;
         }
     }

@@ -1,0 +1,98 @@
+﻿@page "/Admin"
+@using Manager
+@using UI_Server.DTOs
+<h3>Staff Review</h3>
+
+@if (_logDivider.Error != null)
+{
+    <h5>ERROR: @_logDivider.Error</h5>
+} else if (_logDivider.Duration > 0)
+ {
+     <h5>Duration: @_logDivider.Duration seconds</h5>
+ }
+
+<div class="row">
+    <div class="col-lg-8">
+        <EditForm Model="_parserInput" OnSubmit="ExecuteDivider">
+            <textarea maxlength="@FormDto.MaxLength" placeholder="Paste your logs here..." class="form-control" rows="7" @bind="_parserInput.Input"></textarea>
+            <input type="checkbox" bind="@_parserInput.UseSpoilers" class="m3" />
+            <button class="btn @FormDto.BtnColor">@FormDto.BtnValue</button>
+        </EditForm>
+    </div>
+    <div class="col-lg-4">
+        <CatGif/>
+    </div>
+</div>
+<div class="row p-2">
+    <h5>Format:</h5>
+    <textarea class="form-control" readonly>@_logDivider.Format()</textarea>
+</div>
+<div class="row">
+    @try
+    {
+        if (_data.Any())
+        {
+            foreach (var col in _data)
+            {
+                if (col.Value.Any())
+                {
+                    <div class="col-lg-6">
+                        <ContentArea Title="@col.Key" Content="@col.Value"></ContentArea>
+                    </div>
+                }
+            }
+        }
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e);
+    }
+    @for (int i = 0; i < 10; i++)
+    {
+        <br/>
+    }
+</div>
+
+@code {
+    private Adminlog _logDivider;
+    private int _colSize;
+    private IDictionary<string, List<string>> _data;
+    private ParserInput _parserInput;
+
+    private class ParserInput
+    {
+        public string Input { get; set; }
+        public bool UseSpoilers { get; set; }
+    }
+
+    protected override void OnInitialized()
+    {
+        _parserInput = new ParserInput();
+        _data = new Dictionary<string, List<string>>();
+        _colSize = 6;
+        _logDivider = new Adminlog();
+        base.OnInitialized();
+    }
+
+    private void ExecuteDivider()
+    {
+        _logDivider = new Adminlog();
+        _logDivider.UseSpoilers = _parserInput.UseSpoilers;
+        _logDivider.Divide(_parserInput.Input);
+        _data = new Dictionary<string, List<string>>();
+        _data.Add("Registered Abuse", _logDivider.RegisteredAbuse);
+        _data.Add("Possible Abuse", _logDivider.PossibleAbuse);
+        _data.Add("Duty Related Logs", _logDivider.DutyRelated);
+        _data.Add("CIT Chat", _logDivider.CitC);
+        _data.Add("Login", _logDivider.Login);
+        _data.Add("Login Misc", _logDivider.LoginMisc);
+        _data.Add("Actions Taken", _logDivider.ActionsTaken());
+        _data.Add("Logs Fetched", _logDivider.LogsFetched);
+        _data.Add("Contact Admin", _logDivider.Cad);
+        _data.Add("Support", _logDivider.Support);
+        _data.Add("Reports", _logDivider.Reports);
+        _data.Add("Pending Punishments", _logDivider.PendingPunishments);
+        _data.Add("Other", _logDivider.Other);
+    }
+
+}
